@@ -1,13 +1,10 @@
 package jfvb.com.pitangbackend.dataprovider.database.entity;
 
-import jfvb.com.pitangbackend.core.domain.AccountUserDto;
+import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +13,9 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "uk_email_account_user", columnNames = {"email"}),
+        @UniqueConstraint(name = "uk_login_account_user", columnNames = {"login"})})
 public class AccountUser extends BaseEntity {
 
     @Id
@@ -24,7 +24,7 @@ public class AccountUser extends BaseEntity {
     private String firstName;
     private String lastName;
     private String email;
-    private LocalDateTime birthDay;
+    private LocalDate birthday;
     private String login;
     private String password;
     private String phone;
@@ -35,9 +35,9 @@ public class AccountUser extends BaseEntity {
                 accountUser.firstName(),
                 accountUser.lastName(),
                 accountUser.email(),
-                accountUser.birthDay(),
-                accountUser.login(), // todo: make sense?
-                accountUser.password(), // todo: make sense?
+                accountUser.birthday(),
+                accountUser.login(),
+                accountUser.password(),
                 accountUser.phone()
         );
     }
@@ -46,9 +46,9 @@ public class AccountUser extends BaseEntity {
         setFirstName(accountUser.firstName());
         setLastName(accountUser.lastName());
         setEmail(accountUser.email());
-        setBirthDay(accountUser.birthDay());
-        setLogin(accountUser.login()); // todo: make sense?
-        setPassword(accountUser.password()); // todo: make sense?
+        setBirthday(accountUser.birthday());
+        setLogin(accountUser.login());
+        setPassword(accountUser.password());
         setPhone(accountUser.phone());
         return this;
     }
@@ -63,8 +63,8 @@ public class AccountUser extends BaseEntity {
         if (Objects.nonNull(accountUser.email())) {
             setEmail(accountUser.email());
         }
-        if (Objects.nonNull(accountUser.birthDay())) {
-            setBirthDay(accountUser.birthDay());
+        if (Objects.nonNull(accountUser.birthday())) {
+            setBirthday(accountUser.birthday());
         }
         if (Objects.nonNull(accountUser.login())) {
             setLogin(accountUser.login());

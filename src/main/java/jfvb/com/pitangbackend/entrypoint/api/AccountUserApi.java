@@ -1,7 +1,7 @@
 package jfvb.com.pitangbackend.entrypoint.api;
 
-import jfvb.com.pitangbackend.core.domain.AccountUserDto;
 import jfvb.com.pitangbackend.core.usecase.user.UseCaseAccountUser;
+import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -48,7 +49,7 @@ public class AccountUserApi {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AccountUserDto> update(@PathVariable Long id, @RequestBody AccountUserDto accountUser) {
+    public ResponseEntity<AccountUserDto> update(@PathVariable Long id, @RequestBody @Valid AccountUserDto accountUser) {
         final AccountUserDto response = useCaseAccountUser.update(id, accountUser);
         return ResponseEntity.ok().body(response);
     }

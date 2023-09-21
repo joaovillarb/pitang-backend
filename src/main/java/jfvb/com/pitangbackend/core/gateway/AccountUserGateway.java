@@ -13,4 +13,8 @@ public interface AccountUserGateway {
     Page<AccountUser> pageBy(Pageable pageable);
 
     void delete(Long id);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByLogin(String login);
 }

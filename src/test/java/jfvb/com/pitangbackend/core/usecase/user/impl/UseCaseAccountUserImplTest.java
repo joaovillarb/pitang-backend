@@ -1,15 +1,17 @@
 package jfvb.com.pitangbackend.core.usecase.user.impl;
 
 import jfvb.com.pitangbackend.BaseUnitTest;
-import jfvb.com.pitangbackend.core.domain.AccountUserDto;
+import jfvb.com.pitangbackend.core.exception.AlreadyExistsException;
 import jfvb.com.pitangbackend.core.gateway.AccountUserGateway;
 import jfvb.com.pitangbackend.core.usecase.user.UseCaseAccountUser;
 import jfvb.com.pitangbackend.dataprovider.database.entity.AccountUser;
+import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -65,8 +67,8 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
                 accountId,
                 "new firstName",
                 "lastName",
-                "email",
-                LocalDateTime.now(),
+                "email@email.com",
+                LocalDate.now(),
                 "login",
                 "password",
                 "phone"
@@ -100,7 +102,7 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
                 "new firstName",
                 "lastName",
                 "email",
-                LocalDateTime.now(),
+                LocalDate.now(),
                 "login",
                 "password",
                 "phone"
@@ -141,5 +143,42 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
         verify(accountUserGateway).delete(any(Long.class));
     }
 
+    @Test
+    void shouldThrownAlreadyExistsExceptionWhenTryTwoCreateAccountsWithSameEmail() {
+        // GIVEN
+        final AccountUserDto accountUser = toAccountUserDto(null);
+
+        given(this.accountUserGateway.existsByEmail(accountUser.email()))
+                .willReturn(true);
+
+        // WHEN
+        final var exception = assertThrows(AlreadyExistsException.class,
+                () -> this.useCase.create(accountUser));
+
+        // THEN
+        assertThat(exception).isNotNull();
+        verify(accountUserGateway).existsByEmail(accountUser.email());
+    }
+
+    @Test
+    void shouldThrownAlreadyExistsExceptionWhenTryTwoCreateAccountsWithSameLogin() {
+        // GIVEN
+        final AccountUserDto accountUser = toAccountUserDto(null);
+
+        given(this.accountUserGateway.existsByEmail(accountUser.email()))
+                .willReturn(false);
+
+        given(this.accountUserGateway.existsByLogin(accountUser.login()))
+                .willReturn(true);
+
+        // WHEN
+        final var exception = assertThrows(AlreadyExistsException.class,
+                () -> this.useCase.create(accountUser));
+
+        // THEN
+        assertThat(exception).isNotNull();
+        verify(accountUserGateway).existsByEmail(accountUser.email());
+        verify(accountUserGateway).existsByLogin(accountUser.login());
+    }
 
 }

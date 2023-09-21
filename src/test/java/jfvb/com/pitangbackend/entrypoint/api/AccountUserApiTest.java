@@ -1,8 +1,8 @@
 package jfvb.com.pitangbackend.entrypoint.api;
 
 import jfvb.com.pitangbackend.BaseControllerUnitTest;
-import jfvb.com.pitangbackend.core.domain.AccountUserDto;
 import jfvb.com.pitangbackend.core.usecase.user.UseCaseAccountUser;
+import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

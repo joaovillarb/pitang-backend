@@ -33,4 +33,12 @@ public class AccountUserGatewayImpl implements AccountUserGateway {
         this.accountUserRepository.flush();
     }
 
+    public boolean existsByEmail(String email) {
+        return this.accountUserRepository.existsByEmail(email);
+    }
+
+    public boolean existsByLogin(String login) {
+        return this.accountUserRepository.existsByLogin(login);
+    }
+
 }

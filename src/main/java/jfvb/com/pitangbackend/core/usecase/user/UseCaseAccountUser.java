@@ -1,6 +1,6 @@
 package jfvb.com.pitangbackend.core.usecase.user;
 
-import jfvb.com.pitangbackend.core.domain.AccountUserDto;
+import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

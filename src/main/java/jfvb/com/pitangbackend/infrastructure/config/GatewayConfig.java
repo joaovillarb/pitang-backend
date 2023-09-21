@@ -1,4 +1,4 @@
-package jfvb.com.pitangbackend.config;
+package jfvb.com.pitangbackend.infrastructure.config;
 
 import jfvb.com.pitangbackend.core.gateway.AccountUserGateway;
 import jfvb.com.pitangbackend.dataprovider.database.gateway.AccountUserGatewayImpl;
