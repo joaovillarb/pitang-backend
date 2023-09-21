@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.util.List;
 
 public record AccountUserDto(
         Long id,
@@ -29,7 +30,8 @@ public record AccountUserDto(
         String password,
         @NotNull
         @NotBlank
-        String phone) {
+        String phone,
+        List<CarDto> cars) {
 
     public AccountUserDto(AccountUser accountUser) {
         this(
@@ -40,7 +42,10 @@ public record AccountUserDto(
                 accountUser.getBirthday(),
                 accountUser.getLogin(),
                 accountUser.getPassword(),
-                accountUser.getPhone()
+                accountUser.getPhone(),
+                accountUser.getCars().stream()
+                        .map(CarDto::new)
+                        .toList()
         );
     }
 }

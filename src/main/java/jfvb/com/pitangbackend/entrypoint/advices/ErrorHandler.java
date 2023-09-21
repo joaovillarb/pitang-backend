@@ -1,9 +1,6 @@
 package jfvb.com.pitangbackend.entrypoint.advices;
 
-import jfvb.com.pitangbackend.core.exception.AlreadyExistsException;
-import jfvb.com.pitangbackend.core.exception.InvalidFieldsException;
-import jfvb.com.pitangbackend.core.exception.MissingFieldsException;
-import jfvb.com.pitangbackend.core.exception.NotFoundException;
+import jfvb.com.pitangbackend.core.exception.PitangBackendException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,17 +30,10 @@ public class ErrorHandler {
     }
 
     private Integer extractErrorCode(Exception ex) {
-        if (ex instanceof NotFoundException exception) {
+        if (ex instanceof PitangBackendException exception) {
             return exception.getErrorCode();
-        } else if (ex instanceof AlreadyExistsException exception) {
-            return exception.getErrorCode();
-        } else if (ex instanceof InvalidFieldsException exception) {
-            return exception.getErrorCode();
-        } else if (ex instanceof MissingFieldsException exception) {
-            return exception.getErrorCode();
-        } else {
-            return null;
         }
-    }
 
+        return null;
+    }
 }

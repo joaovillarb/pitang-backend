@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -49,7 +48,7 @@ public class AccountUserApi {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AccountUserDto> update(@PathVariable Long id, @RequestBody @Valid AccountUserDto accountUser) {
+    public ResponseEntity<AccountUserDto> update(@PathVariable Long id, @RequestBody AccountUserDto accountUser) {
         final AccountUserDto response = useCaseAccountUser.update(id, accountUser);
         return ResponseEntity.ok().body(response);
     }
