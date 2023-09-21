@@ -9,6 +9,7 @@ import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -71,7 +72,8 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
                 LocalDate.now(),
                 "login",
                 "password",
-                "phone"
+                "phone",
+                List.of(toCarDto(accountId))
         );
 
         final AccountUser originalAccountUserEntity = new AccountUser(toAccountUserDto(accountId));
@@ -105,7 +107,8 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
                 LocalDate.now(),
                 "login",
                 "password",
-                "phone"
+                "phone",
+                List.of(toCarDto(accountId))
         );
 
         final AccountUser originalAccountUserEntity = new AccountUser(toAccountUserDto(accountId));
