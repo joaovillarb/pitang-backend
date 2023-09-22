@@ -20,7 +20,7 @@ public record CarDto(
     public CarDto(Car car) {
         this(
                 car.getId(),
-                car.getYear(),
+                car.getProductionYear(),
                 car.getLicensePlate(),
                 car.getModel(),
                 car.getColor(),

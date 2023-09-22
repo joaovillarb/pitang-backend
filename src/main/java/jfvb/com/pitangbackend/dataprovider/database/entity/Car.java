@@ -17,7 +17,7 @@ public class Car extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer year;
+    private Integer productionYear;
     private String licensePlate;
     private String model;
     private String color;
@@ -38,7 +38,7 @@ public class Car extends BaseEntity {
     }
 
     public Car update(CarDto car) {
-        setYear(car.year());
+        setProductionYear(car.year());
         setLicensePlate(car.licensePlate());
         setModel(car.model());
         setColor(car.color());
@@ -47,7 +47,7 @@ public class Car extends BaseEntity {
 
     public Car patch(CarDto car) {
         if (Objects.nonNull(car.year())) {
-            setYear(car.year());
+            setProductionYear(car.year());
         }
         if (Objects.nonNull(car.licensePlate())) {
             setLicensePlate(car.licensePlate());
