@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,7 +28,8 @@ class AccountUserApiIntegrationTest extends BaseIntegrationTests {
                 LocalDate.now(),
                 randomUuid,
                 "password",
-                "phone"
+                "phone",
+                List.of(toCarDto(null))
         );
         // WHEN
         final var resultActions = requestPost(accountUserDto, URI.create("/users"));
@@ -41,7 +43,7 @@ class AccountUserApiIntegrationTest extends BaseIntegrationTests {
         assertThat(response).isNotNull();
         assertThat(response)
                 .usingRecursiveComparison()
-                .ignoringFields("id")
+                .ignoringFields("id", "cars.id")
                 .isEqualTo(accountUserDto);
     }
 

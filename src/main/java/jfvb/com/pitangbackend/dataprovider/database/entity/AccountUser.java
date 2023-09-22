@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -28,19 +29,23 @@ public class AccountUser extends BaseEntity {
     private String login;
     private String password;
     private String phone;
+    @OneToMany(mappedBy = "accountUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Car> cars;
 
     public AccountUser(AccountUserDto accountUser) {
-        this(
-                accountUser.id(),
-                accountUser.firstName(),
-                accountUser.lastName(),
-                accountUser.email(),
-                accountUser.birthday(),
-                accountUser.login(),
-                accountUser.password(),
-                accountUser.phone()
-        );
+        this.id = accountUser.id();
+        this.firstName = accountUser.firstName();
+        this.lastName = accountUser.lastName();
+        this.email = accountUser.email();
+        this.birthday = accountUser.birthday();
+        this.login = accountUser.login();
+        this.password = accountUser.password();
+        this.phone = accountUser.phone();
+        this.cars = accountUser.cars().stream()
+                .map(carDto -> new Car(carDto, this))
+                .toList();
     }
+
 
     public AccountUser update(AccountUserDto accountUser) {
         setFirstName(accountUser.firstName());

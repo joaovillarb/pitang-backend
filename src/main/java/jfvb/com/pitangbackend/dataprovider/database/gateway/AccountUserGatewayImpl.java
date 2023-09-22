@@ -4,8 +4,8 @@ import jfvb.com.pitangbackend.core.exception.NotFoundException;
 import jfvb.com.pitangbackend.core.gateway.AccountUserGateway;
 import jfvb.com.pitangbackend.dataprovider.database.entity.AccountUser;
 import jfvb.com.pitangbackend.dataprovider.database.repository.AccountUserRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public class AccountUserGatewayImpl implements AccountUserGateway {
 
@@ -24,10 +24,6 @@ public class AccountUserGatewayImpl implements AccountUserGateway {
         return this.accountUserRepository.saveAndFlush(accountUser);
     }
 
-    public Page<AccountUser> pageBy(Pageable pageable) {
-        return this.accountUserRepository.findAll(pageable);
-    }
-
     public void delete(Long id) {
         this.accountUserRepository.deleteById(id);
         this.accountUserRepository.flush();
@@ -39,6 +35,10 @@ public class AccountUserGatewayImpl implements AccountUserGateway {
 
     public boolean existsByLogin(String login) {
         return this.accountUserRepository.existsByLogin(login);
+    }
+
+    public List<AccountUser> findAll() {
+        return this.accountUserRepository.findAll();
     }
 
 }

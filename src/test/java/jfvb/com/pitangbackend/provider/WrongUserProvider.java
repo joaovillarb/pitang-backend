@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class WrongUserProvider extends BaseTest implements ArgumentsProvider {
@@ -24,7 +25,8 @@ public class WrongUserProvider extends BaseTest implements ArgumentsProvider {
                                 LocalDate.now(),
                                 "login",
                                 "password",
-                                "phone"
+                                "phone",
+                                List.of(toCarDto(null))
                         ),
                         new CustomErrorResponse(
                                 "Missing Field(s): [firstName]",
@@ -40,7 +42,8 @@ public class WrongUserProvider extends BaseTest implements ArgumentsProvider {
                                 LocalDate.now(),
                                 "login",
                                 "password",
-                                "phone"
+                                "phone",
+                                List.of(toCarDto(null))
                         ),
                         new CustomErrorResponse(
                                 "Invalid Field(s): [email]",

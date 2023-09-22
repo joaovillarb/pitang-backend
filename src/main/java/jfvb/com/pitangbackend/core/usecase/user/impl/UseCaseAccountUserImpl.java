@@ -5,9 +5,12 @@ import jfvb.com.pitangbackend.core.gateway.AccountUserGateway;
 import jfvb.com.pitangbackend.core.usecase.user.UseCaseAccountUser;
 import jfvb.com.pitangbackend.core.validator.FieldsValidator;
 import jfvb.com.pitangbackend.dataprovider.database.entity.AccountUser;
+import jfvb.com.pitangbackend.dataprovider.database.entity.Car;
 import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class UseCaseAccountUserImpl implements UseCaseAccountUser {
 
@@ -18,7 +21,7 @@ public class UseCaseAccountUserImpl implements UseCaseAccountUser {
     }
 
     public AccountUserDto getById(Long id) {
-        AccountUser accountUser = this.accountUserGateway.getById(id);
+        var accountUser = recoverById(id);
         return new AccountUserDto(accountUser);
     }
 
@@ -33,33 +36,61 @@ public class UseCaseAccountUserImpl implements UseCaseAccountUser {
             throw new AlreadyExistsException("Login already exists", 3);
         }
 
-        AccountUser accountUser = new AccountUser(accountUserDto);
-        AccountUser saved = this.accountUserGateway.save(accountUser);
+        var accountUser = new AccountUser(accountUserDto);
+        var saved = persist(accountUser);
         return new AccountUserDto(saved);
     }
 
     public AccountUserDto update(Long id, AccountUserDto accountUser) {
         FieldsValidator.validate(accountUser);
-        AccountUser updated = this.accountUserGateway.getById(id)
+        var updated = this.accountUserGateway.getById(id)
                 .update(accountUser);
-        AccountUser saved = this.accountUserGateway.save(updated);
+        var saved = persist(updated);
         return new AccountUserDto(saved);
     }
 
     public AccountUserDto patch(Long id, AccountUserDto accountUser) {
-        AccountUser updated = this.accountUserGateway.getById(id)
+        var updated = recoverById(id)
                 .patch(accountUser);
-        AccountUser saved = this.accountUserGateway.save(updated);
+        var saved = persist(updated);
         return new AccountUserDto(saved);
     }
 
     public void delete(Long id) {
-        this.accountUserGateway.getById(id);
+        recoverById(id);
         this.accountUserGateway.delete(id);
     }
 
-    public Page<AccountUserDto> pageBy(Pageable pageable) {
-        return this.accountUserGateway.pageBy(pageable)
-                .map(AccountUserDto::new);
+    public List<AccountUserDto> findAll() {
+        return this.accountUserGateway.findAll()
+                .stream()
+                .sorted(Comparator.comparingInt(user -> {
+                                    IntStream intStream = ((AccountUser) user).getCars()
+                                            .stream()
+                                            .mapToInt(Car::getUsageCount);
+                                    return intStream.sum();
+                                })
+                                .thenComparing(user -> ((AccountUser) user).getLogin())
+                )
+                .map(user -> {
+                    List<Car> list = user.getCars()
+                            .stream()
+                            .sorted(Comparator
+                                    .comparingInt(Car::getUsageCount)
+                                    .reversed()
+                                    .thenComparing(Car::getModel)
+                            )
+                            .toList();
+                    return new AccountUserDto(user, list);
+                })
+                .toList();
+    }
+
+    private AccountUser recoverById(Long id) {
+        return this.accountUserGateway.getById(id);
+    }
+
+    private AccountUser persist(AccountUser updated) {
+        return this.accountUserGateway.save(updated);
     }
 }

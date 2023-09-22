@@ -6,12 +6,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class InvalidFieldsException extends RuntimeException {
-
-    private final Integer errorCode;
+public class InvalidFieldsException extends PitangBackendException {
 
     public InvalidFieldsException(String message) {
-        super(message);
-        this.errorCode = 4;
+        super(message, 4);
     }
 }
