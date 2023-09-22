@@ -33,7 +33,8 @@ public abstract class BaseTest {
                 2018,
                 "PDV-0622",
                 "Audi",
-                "White"
+                "White",
+                0
         );
     }
 }

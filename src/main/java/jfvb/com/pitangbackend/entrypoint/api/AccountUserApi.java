@@ -2,14 +2,12 @@ package jfvb.com.pitangbackend.entrypoint.api;
 
 import jfvb.com.pitangbackend.core.usecase.user.UseCaseAccountUser;
 import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -22,8 +20,8 @@ public class AccountUserApi {
     }
 
     @GetMapping
-    public Page<AccountUserDto> findAll(@PageableDefault Pageable pageable) {
-        return useCaseAccountUser.pageBy(pageable);
+    public List<AccountUserDto> findAll() {
+        return useCaseAccountUser.findAll();
     }
 
     @GetMapping("/{id}")

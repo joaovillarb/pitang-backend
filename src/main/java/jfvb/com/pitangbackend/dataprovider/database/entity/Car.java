@@ -23,6 +23,7 @@ public class Car extends BaseEntity {
     private String color;
     @ManyToOne
     private AccountUser accountUser;
+    private Integer usageCount;
 
     public Car(CarDto car, AccountUser user) {
         this(
@@ -31,7 +32,8 @@ public class Car extends BaseEntity {
                 car.licensePlate(),
                 car.model(),
                 car.color(),
-                user
+                user,
+                Objects.isNull(car.usageCount()) ? 0 : car.usageCount()
         );
     }
 
@@ -59,4 +61,8 @@ public class Car extends BaseEntity {
         return this;
     }
 
+    public Car increaseUsage() {
+        this.usageCount += 1;
+        return this;
+    }
 }

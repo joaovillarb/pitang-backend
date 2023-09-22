@@ -3,6 +3,7 @@ package jfvb.com.pitangbackend.entrypoint.dto;
 import jfvb.com.pitangbackend.dataprovider.database.entity.Car;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 public record CarDto(
         Long id,
@@ -13,7 +14,8 @@ public record CarDto(
         @NotBlank
         String model,
         @NotBlank
-        String color) {
+        String color,
+        Integer usageCount) {
 
     public CarDto(Car car) {
         this(
@@ -21,7 +23,8 @@ public record CarDto(
                 car.getYear(),
                 car.getLicensePlate(),
                 car.getModel(),
-                car.getColor()
+                car.getColor(),
+                Objects.isNull(car.getUsageCount()) ? 0 : car.getUsageCount()
         );
     }
 }

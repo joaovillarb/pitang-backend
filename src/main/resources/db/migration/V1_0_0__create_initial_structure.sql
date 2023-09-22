@@ -26,6 +26,7 @@ create table car
     license_plate varchar(255),
     model         varchar(255),
     year          int4,
+    usageCount    int4,
     primary key (id)
 )
 

@@ -34,6 +34,6 @@ public class ErrorHandler {
             return exception.getErrorCode();
         }
 
-        return null;
+        return 0;
     }
 }

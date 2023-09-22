@@ -1,8 +1,8 @@
 package jfvb.com.pitangbackend.core.gateway;
 
 import jfvb.com.pitangbackend.dataprovider.database.entity.Car;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface CarGateway {
 
@@ -10,10 +10,11 @@ public interface CarGateway {
 
     Car save(Car car);
 
-    Page<Car> pageBy(Pageable pageable);
-
     void delete(Long id);
 
     boolean existsByLicensePlate(String licensePlate);
 
+    List<Car> findAllByAccountUserId(Long userId);
+
+    Car getByIdAndAccountUserId(Long id, Long userId);
 }

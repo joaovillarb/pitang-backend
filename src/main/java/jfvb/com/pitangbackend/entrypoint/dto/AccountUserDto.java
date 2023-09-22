@@ -1,6 +1,7 @@
 package jfvb.com.pitangbackend.entrypoint.dto;
 
 import jfvb.com.pitangbackend.dataprovider.database.entity.AccountUser;
+import jfvb.com.pitangbackend.dataprovider.database.entity.Car;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -44,6 +45,22 @@ public record AccountUserDto(
                 accountUser.getPassword(),
                 accountUser.getPhone(),
                 accountUser.getCars().stream()
+                        .map(CarDto::new)
+                        .toList()
+        );
+    }
+
+    public AccountUserDto(AccountUser accountUser, List<Car> sortedCars) {
+        this(
+                accountUser.getId(),
+                accountUser.getFirstName(),
+                accountUser.getLastName(),
+                accountUser.getEmail(),
+                accountUser.getBirthday(),
+                accountUser.getLogin(),
+                accountUser.getPassword(),
+                accountUser.getPhone(),
+                sortedCars.stream()
                         .map(CarDto::new)
                         .toList()
         );

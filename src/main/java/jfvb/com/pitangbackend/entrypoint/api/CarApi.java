@@ -2,14 +2,12 @@ package jfvb.com.pitangbackend.entrypoint.api;
 
 import jfvb.com.pitangbackend.core.usecase.car.UseCaseCar;
 import jfvb.com.pitangbackend.entrypoint.dto.CarDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/cars")
@@ -22,14 +20,14 @@ public class CarApi {
     }
 
     @GetMapping
-    public Page<CarDto> findAllByLoggedInUser(@PageableDefault Pageable pageable) {
-        return useCaseCar.pageBy(pageable);
+    public List<CarDto> listAllByLoggedInUser(@RequestHeader("Authorization") String token) {
+        return useCaseCar.listAllByLoggedInUser(Long.parseLong(token));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CarDto> getByIdAndLoggedInUser(@RequestHeader("Authorization") String token,
                                                          @PathVariable Long id) {
-        final CarDto response = useCaseCar.getById(id, Long.parseLong(token));
+        final CarDto response = useCaseCar.getByIdAndIncreaseUsage(id, Long.parseLong(token));
         return ResponseEntity.ok().body(response);
     }
 
