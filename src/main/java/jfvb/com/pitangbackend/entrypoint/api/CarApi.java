@@ -20,21 +20,22 @@ public class CarApi {
     }
 
     @GetMapping
-    public List<CarDto> listAllByLoggedInUser(@RequestHeader("Authorization") String token) {
-        return useCaseCar.listAllByLoggedInUser(Long.parseLong(token));
+    public ResponseEntity<List<CarDto>> findAllByLoggedInUser(@RequestHeader("Authorization") String token) {
+        final var response = useCaseCar.findAllByLoggedInUser(Long.parseLong(token));
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CarDto> getByIdAndLoggedInUser(@RequestHeader("Authorization") String token,
                                                          @PathVariable Long id) {
-        final CarDto response = useCaseCar.getByIdAndIncreaseUsage(id, Long.parseLong(token));
-        return ResponseEntity.ok().body(response);
+        final var response = useCaseCar.getByIdAndIncreaseUsage(id, Long.parseLong(token));
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
     public ResponseEntity<CarDto> create(@RequestHeader("Authorization") String token,
                                          @RequestBody CarDto car) {
-        final CarDto response = useCaseCar.create(car, Long.parseLong(token));
+        final var response = useCaseCar.create(car, Long.parseLong(token));
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -50,15 +51,15 @@ public class CarApi {
     @PutMapping("/{id}")
     public ResponseEntity<CarDto> update(@RequestHeader("Authorization") String token,
                                          @PathVariable Long id, @RequestBody CarDto car) {
-        final CarDto response = useCaseCar.update(id, car, Long.parseLong(token));
-        return ResponseEntity.ok().body(response);
+        final var response = useCaseCar.update(id, car, Long.parseLong(token));
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<CarDto> patch(@RequestHeader("Authorization") String token,
                                         @PathVariable Long id, @RequestBody CarDto car) {
-        final CarDto response = useCaseCar.patch(id, car, Long.parseLong(token));
-        return ResponseEntity.ok().body(response);
+        final var response = useCaseCar.patch(id, car, Long.parseLong(token));
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")

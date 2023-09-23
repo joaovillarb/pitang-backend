@@ -20,14 +20,15 @@ public class AccountUserApi {
     }
 
     @GetMapping
-    public List<AccountUserDto> findAll() {
-        return useCaseAccountUser.findAll();
+    public ResponseEntity<List<AccountUserDto>> findAll() {
+        final var accountUserList = useCaseAccountUser.findAll();
+        return ResponseEntity.ok(accountUserList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AccountUserDto> getById(@PathVariable Long id) {
         final AccountUserDto response = useCaseAccountUser.getById(id);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
@@ -48,13 +49,13 @@ public class AccountUserApi {
     @PutMapping("/{id}")
     public ResponseEntity<AccountUserDto> update(@PathVariable Long id, @RequestBody AccountUserDto accountUser) {
         final AccountUserDto response = useCaseAccountUser.update(id, accountUser);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<AccountUserDto> patch(@PathVariable Long id, @RequestBody AccountUserDto accountUser) {
         final AccountUserDto response = useCaseAccountUser.patch(id, accountUser);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")

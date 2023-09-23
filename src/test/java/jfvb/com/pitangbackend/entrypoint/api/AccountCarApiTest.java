@@ -1,8 +1,8 @@
 package jfvb.com.pitangbackend.entrypoint.api;
 
 import jfvb.com.pitangbackend.BaseControllerUnitTest;
-import jfvb.com.pitangbackend.core.usecase.user.UseCaseAccountUser;
-import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
+import jfvb.com.pitangbackend.core.usecase.car.UseCaseCar;
+import jfvb.com.pitangbackend.entrypoint.dto.CarDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,21 +14,21 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
-class AccountUserApiTest extends BaseControllerUnitTest {
+class AccountCarApiTest extends BaseControllerUnitTest {
 
-    private final UseCaseAccountUser useCase = mock(UseCaseAccountUser.class);
-    private final AccountUserApi controller = new AccountUserApi(this.useCase);
+    private final UseCaseCar useCase = mock(UseCaseCar.class);
+    private final CarApi controller = new CarApi(this.useCase);
 
     @Test
     void getById() {
         // GIVEN
-        final AccountUserDto accountUser = toAccountUserDto(1L);
+        final CarDto car = toCarDto(1L);
 
-        given(this.useCase.getById(1L))
-                .willReturn(accountUser);
+        given(this.useCase.getByIdAndIncreaseUsage(1L, 1L))
+                .willReturn(car);
 
         // WHEN
-        final ResponseEntity<AccountUserDto> response = this.controller.getById(1L);
+        final ResponseEntity<CarDto> response = this.controller.getByIdAndLoggedInUser("1", 1L);
 
         // THEN
         assertThat(response).isNotNull();
@@ -36,20 +36,19 @@ class AccountUserApiTest extends BaseControllerUnitTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody())
                 .usingRecursiveComparison()
-                .isEqualTo(accountUser);
+                .isEqualTo(car);
     }
 
     @Test
-    void shouldFindAllAccountUser() {
+    void shouldFindAllCars() {
         // GIVEN
-        final AccountUserDto accountUser = toAccountUserDto(1L);
-        final List<AccountUserDto> accountUserList = List.of(accountUser);
+        final List<CarDto> cars = toCarDtoList(1L);
 
-        given(this.useCase.findAll())
-                .willReturn(accountUserList);
+        given(this.useCase.findAllByLoggedInUser(1L))
+                .willReturn(cars);
 
         // WHEN
-        final var response = this.controller.findAll();
+        final ResponseEntity<List<CarDto>> response = this.controller.findAllByLoggedInUser("1");
 
         // THEN
         assertThat(response).isNotNull();
@@ -57,19 +56,19 @@ class AccountUserApiTest extends BaseControllerUnitTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody())
                 .usingRecursiveComparison()
-                .isEqualTo(accountUserList);
+                .isEqualTo(cars);
     }
 
     @Test
-    void shouldCreateAccountUser() {
+    void shouldCreateCar() {
         // GIVEN
-        final AccountUserDto accountUser = toAccountUserDto(null);
+        final CarDto carDto = toCarDto(null);
 
-        given(this.useCase.create(accountUser))
-                .willReturn(accountUser);
+        given(this.useCase.create(carDto, 1L))
+                .willReturn(carDto);
 
         // WHEN
-        final ResponseEntity<AccountUserDto> response = this.controller.create(accountUser);
+        final ResponseEntity<CarDto> response = this.controller.create("1", carDto);
 
         // THEN
         assertThat(response).isNotNull();
@@ -77,19 +76,19 @@ class AccountUserApiTest extends BaseControllerUnitTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody())
                 .usingRecursiveComparison()
-                .isEqualTo(accountUser);
+                .isEqualTo(carDto);
     }
 
     @Test
-    void shouldUpdateAccountUser() {
+    void shouldUpdateCar() {
         // GIVEN
-        final AccountUserDto accountUser = toAccountUserDto(1L);
+        final CarDto carDto = toCarDto(1L);
 
-        given(this.useCase.update(1L, accountUser))
-                .willReturn(accountUser);
+        given(this.useCase.update(1L, carDto, 1L))
+                .willReturn(carDto);
 
         // WHEN
-        final ResponseEntity<AccountUserDto> response = this.controller.update(1L, accountUser);
+        final ResponseEntity<CarDto> response = this.controller.update("1", 1L, carDto);
 
         // THEN
         assertThat(response).isNotNull();
@@ -97,19 +96,19 @@ class AccountUserApiTest extends BaseControllerUnitTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody())
                 .usingRecursiveComparison()
-                .isEqualTo(accountUser);
+                .isEqualTo(carDto);
     }
 
     @Test
-    void shouldPatchAccountUser() {
+    void shouldPatchCar() {
         // GIVEN
-        final AccountUserDto accountUser = toAccountUserDto(1L);
+        final CarDto car = toCarDto(1L);
 
-        given(this.useCase.patch(1L, accountUser))
-                .willReturn(accountUser);
+        given(this.useCase.patch(1L, car, 1L))
+                .willReturn(car);
 
         // WHEN
-        final ResponseEntity<AccountUserDto> response = this.controller.patch(1L, accountUser);
+        final ResponseEntity<CarDto> response = this.controller.patch("1", 1L, car);
 
         // THEN
         assertThat(response).isNotNull();
@@ -117,17 +116,17 @@ class AccountUserApiTest extends BaseControllerUnitTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody())
                 .usingRecursiveComparison()
-                .isEqualTo(accountUser);
+                .isEqualTo(car);
     }
 
     @Test
-    void shouldDeleteAccountUser() {
+    void shouldDeleteCar() {
         // GIVEN
         doNothing().when(this.useCase)
-                .delete(1L);
+                .delete(1L, 1L);
 
         // WHEN
-        final ResponseEntity<Void> response = this.controller.delete(1L);
+        final ResponseEntity<Void> response = this.controller.delete("1", 1L);
 
         // THEN
         assertThat(response).isNotNull();

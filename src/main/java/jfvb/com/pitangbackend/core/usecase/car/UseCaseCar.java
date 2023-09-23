@@ -15,5 +15,5 @@ public interface UseCaseCar {
 
     void delete(Long id, Long userId);
 
-    List<CarDto> listAllByLoggedInUser(Long userId);
+    List<CarDto> findAllByLoggedInUser(Long userId);
 }
