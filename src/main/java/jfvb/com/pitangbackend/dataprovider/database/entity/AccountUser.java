@@ -1,23 +1,28 @@
 package jfvb.com.pitangbackend.dataprovider.database.entity;
 
 import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
+import jfvb.com.pitangbackend.infrastructure.config.ApplicationConfig;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "uk_email_account_user", columnNames = {"email"}),
         @UniqueConstraint(name = "uk_login_account_user", columnNames = {"login"})})
-public class AccountUser extends BaseEntity {
+public class AccountUser extends BaseEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +36,7 @@ public class AccountUser extends BaseEntity {
     private String phone;
     @OneToMany(mappedBy = "accountUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Car> cars;
+    private LocalDateTime lastLogin;
 
     public AccountUser(AccountUserDto accountUser) {
         this.id = accountUser.id();
@@ -39,7 +45,7 @@ public class AccountUser extends BaseEntity {
         this.email = accountUser.email();
         this.birthday = accountUser.birthday();
         this.login = accountUser.login();
-        this.password = accountUser.password();
+        this.password = ApplicationConfig.passwordEncoder().encode(accountUser.password());
         this.phone = accountUser.phone();
         this.cars = accountUser.cars().stream()
                 .map(carDto -> new Car(carDto, this))
@@ -48,13 +54,13 @@ public class AccountUser extends BaseEntity {
 
 
     public AccountUser update(AccountUserDto accountUser) {
-        setFirstName(accountUser.firstName());
-        setLastName(accountUser.lastName());
-        setEmail(accountUser.email());
-        setBirthday(accountUser.birthday());
-        setLogin(accountUser.login());
-        setPassword(accountUser.password());
-        setPhone(accountUser.phone());
+        this.firstName = accountUser.firstName();
+        this.lastName = accountUser.lastName();
+        this.email = accountUser.email();
+        this.birthday = accountUser.birthday();
+        this.login = accountUser.login();
+        this.password = ApplicationConfig.passwordEncoder().encode(accountUser.password());
+        this.phone = accountUser.phone();
         return this;
     }
 
@@ -75,7 +81,7 @@ public class AccountUser extends BaseEntity {
             setLogin(accountUser.login());
         }
         if (Objects.nonNull(accountUser.password())) {
-            setPassword(accountUser.password());
+            setPassword(ApplicationConfig.passwordEncoder().encode(accountUser.password()));
         }
         if (Objects.nonNull(accountUser.phone())) {
             setPhone(accountUser.phone());
@@ -83,4 +89,40 @@ public class AccountUser extends BaseEntity {
         return this;
     }
 
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    public String getUsername() {
+        return this.login;
+    }
+
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public String toString() {
+        return "AccountUser{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthday=" + birthday +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }

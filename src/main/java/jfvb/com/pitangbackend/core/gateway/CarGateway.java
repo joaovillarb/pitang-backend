@@ -4,13 +4,7 @@ import jfvb.com.pitangbackend.dataprovider.database.entity.Car;
 
 import java.util.List;
 
-public interface CarGateway {
-
-    Car getById(Long id);
-
-    Car save(Car car);
-
-    void delete(Long id);
+public interface CarGateway extends AbstractGateway<Car, Long> {
 
     boolean existsByLicensePlate(String licensePlate);
 

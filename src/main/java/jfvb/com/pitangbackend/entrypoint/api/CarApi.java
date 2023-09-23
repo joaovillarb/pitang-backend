@@ -2,6 +2,8 @@ package jfvb.com.pitangbackend.entrypoint.api;
 
 import jfvb.com.pitangbackend.core.usecase.car.UseCaseCar;
 import jfvb.com.pitangbackend.entrypoint.dto.CarDto;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,31 +13,26 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/cars")
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class CarApi {
 
     private final UseCaseCar useCaseCar;
 
-    CarApi(UseCaseCar useCaseCar) {
-        this.useCaseCar = useCaseCar;
-    }
-
     @GetMapping
-    public ResponseEntity<List<CarDto>> findAllByLoggedInUser(@RequestHeader("Authorization") String token) {
-        final var response = useCaseCar.findAllByLoggedInUser(Long.parseLong(token));
+    public ResponseEntity<List<CarDto>> findAllByLoggedInUser() {
+        final var response = useCaseCar.findAllByLoggedInUser();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CarDto> getByIdAndLoggedInUser(@RequestHeader("Authorization") String token,
-                                                         @PathVariable Long id) {
-        final var response = useCaseCar.getByIdAndIncreaseUsage(id, Long.parseLong(token));
+    public ResponseEntity<CarDto> getByIdAndLoggedInUser(@PathVariable Long id) {
+        final var response = useCaseCar.getByIdAndIncreaseUsage(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<CarDto> create(@RequestHeader("Authorization") String token,
-                                         @RequestBody CarDto car) {
-        final var response = useCaseCar.create(car, Long.parseLong(token));
+    public ResponseEntity<CarDto> create(@RequestBody CarDto car) {
+        final var response = useCaseCar.create(car);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -49,23 +46,20 @@ public class CarApi {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CarDto> update(@RequestHeader("Authorization") String token,
-                                         @PathVariable Long id, @RequestBody CarDto car) {
-        final var response = useCaseCar.update(id, car, Long.parseLong(token));
+    public ResponseEntity<CarDto> update(@PathVariable Long id, @RequestBody CarDto car) {
+        final var response = useCaseCar.update(id, car);
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<CarDto> patch(@RequestHeader("Authorization") String token,
-                                        @PathVariable Long id, @RequestBody CarDto car) {
-        final var response = useCaseCar.patch(id, car, Long.parseLong(token));
+    public ResponseEntity<CarDto> patch(@PathVariable Long id, @RequestBody CarDto car) {
+        final var response = useCaseCar.patch(id, car);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@RequestHeader("Authorization") String token,
-                                       @PathVariable Long id) {
-        useCaseCar.delete(id, Long.parseLong(token));
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        useCaseCar.delete(id);
         return ResponseEntity.noContent().build();
     }
 

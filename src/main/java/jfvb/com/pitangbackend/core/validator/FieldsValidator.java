@@ -1,12 +1,12 @@
 package jfvb.com.pitangbackend.core.validator;
 
+import jfvb.com.pitangbackend.core.annotations.DtoNotBlank;
+import jfvb.com.pitangbackend.core.annotations.DtoNotNull;
+import jfvb.com.pitangbackend.core.annotations.DtoPattern;
 import jfvb.com.pitangbackend.core.exception.FieldAccessException;
 import jfvb.com.pitangbackend.core.exception.InvalidFieldsException;
 import jfvb.com.pitangbackend.core.exception.MissingFieldsException;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public final class FieldsValidator {
     }
 
     public static <T> void validate(T objectToValidate) {
-        List<String> missingFields = getFieldAnnotations(objectToValidate, NotNull.class)
+        List<String> missingFields = getFieldAnnotations(objectToValidate, DtoNotNull.class)
                 .filter(field -> Objects.isNull(getFieldValue(field, objectToValidate)))
                 .map(Field::getName)
                 .toList();
@@ -36,16 +36,16 @@ public final class FieldsValidator {
             throw new MissingFieldsException(finalMessage);
         }
 
-        List<String> invalidNotBlankFields = getFieldAnnotations(objectToValidate, NotBlank.class)
+        List<String> invalidNotBlankFields = getFieldAnnotations(objectToValidate, DtoNotBlank.class)
                 .filter(field -> isBlankString(getFieldValue(field, objectToValidate)))
                 .map(Field::getName)
                 .toList();
 
-        List<String> invalidPatternFields = getFieldAnnotations(objectToValidate, Pattern.class)
+        List<String> invalidPatternFields = getFieldAnnotations(objectToValidate, DtoPattern.class)
                 .filter(field -> {
                     Object fieldValue = getFieldValue(field, objectToValidate);
                     if (fieldValue instanceof String string) {
-                        String patternRegex = field.getAnnotation(Pattern.class).regexp();
+                        String patternRegex = field.getAnnotation(DtoPattern.class).value();
                         return !isValidPattern(string, patternRegex);
                     }
                     return false;

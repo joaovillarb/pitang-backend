@@ -1,14 +1,22 @@
 package jfvb.com.pitangbackend;
 
+import jfvb.com.pitangbackend.dataprovider.database.entity.AccountUser;
+import jfvb.com.pitangbackend.dataprovider.database.entity.Car;
 import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
 import jfvb.com.pitangbackend.entrypoint.dto.CarDto;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @ActiveProfiles("test")
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration
 public abstract class BaseTest {
 
     protected AccountUserDto toAccountUserDto(Long id) {
@@ -21,8 +29,46 @@ public abstract class BaseTest {
                 "login",
                 "password",
                 "phone",
-                List.of(toCarDto(id))
+                List.of(toCarDto(id)),
+                null,
+                null
         );
+    }
+
+    protected AccountUserDto toAccountUserDtoLoggedIn(Long id) {
+        return new AccountUserDto(
+                id,
+                "firstName",
+                "lastName",
+                "email@email.com",
+                LocalDate.now(),
+                "login",
+                null,
+                "phone",
+                List.of(toCarDto(id)),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+    }
+
+    protected AccountUser toAccountUserLoggedIn(Long id) {
+        AccountUser accountUser = new AccountUser(
+                id,
+                "firstName",
+                "lastName",
+                "email@email.com",
+                LocalDate.now(),
+                "login",
+                null,
+                "phone",
+                null,
+                LocalDateTime.now()
+        );
+
+        accountUser.setCreatedAt(LocalDateTime.now());
+        accountUser.setCars(List.of(toCar(id, accountUser)));
+
+        return accountUser;
     }
 
     protected List<AccountUserDto> createListAccountUserDto() {
@@ -44,7 +90,9 @@ public abstract class BaseTest {
                 "988888888",
                 List.of(
                         new CarDto(3L, 2018, "PDV-0625", "Audi", "White", 0)
-                )
+                ),
+                null,
+                null
         );
     }
 
@@ -61,7 +109,9 @@ public abstract class BaseTest {
                 List.of(
                         new CarDto(2L, 2018, "PDV-0622", "Ford", "White", 0),
                         new CarDto(1L, 2018, "PDV-0625", "Audi", "White", 1)
-                )
+                ),
+                null,
+                null
         );
     }
 
@@ -72,6 +122,18 @@ public abstract class BaseTest {
                 "PDV-0622",
                 "Audi",
                 "White",
+                0
+        );
+    }
+
+    protected Car toCar(Long id, AccountUser user) {
+        return new Car(
+                id,
+                2018,
+                "PDV-0622",
+                "Audi",
+                "White",
+                user,
                 0
         );
     }

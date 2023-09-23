@@ -24,3 +24,10 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+
+api:
+  security:
+    token:
+      secret: 18c4833381241fc938c1315482f2805d46c243cda967827f21bb2b08f813df65
+      expiration-in-minutes: 1
