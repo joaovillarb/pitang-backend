@@ -21,7 +21,7 @@ public class UseCaseCarImpl implements UseCaseCar {
         this.accountUserGateway = accountUserGateway;
     }
 
-    public List<CarDto> listAllByLoggedInUser(Long userId) {
+    public List<CarDto> findAllByLoggedInUser(Long userId) {
         return this.carGateway.findAllByAccountUserId(userId)
                 .stream()
                 .map(CarDto::new)
@@ -60,7 +60,6 @@ public class UseCaseCarImpl implements UseCaseCar {
 
     public void delete(Long id, Long userId) {
         var carFounded = recoverById(id, userId);
-        this.carGateway.getById(carFounded.getId());
         this.carGateway.delete(carFounded.getId());
     }
 

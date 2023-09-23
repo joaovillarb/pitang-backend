@@ -1,4 +1,4 @@
-package jfvb.com.pitangbackend.entrypoint.advices;
+package jfvb.com.pitangbackend.entrypoint.advice;
 
 import jfvb.com.pitangbackend.core.exception.PitangBackendException;
 import lombok.extern.slf4j.Slf4j;

@@ -6,17 +6,20 @@ import jfvb.com.pitangbackend.core.gateway.AccountUserGateway;
 import jfvb.com.pitangbackend.core.usecase.user.UseCaseAccountUser;
 import jfvb.com.pitangbackend.dataprovider.database.entity.AccountUser;
 import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
+import jfvb.com.pitangbackend.provider.WrongUserProvider;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class UseCaseAccountUserImplTest extends BaseUnitTest {
 
@@ -58,6 +61,23 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
         assertThat(response)
                 .usingRecursiveComparison()
                 .isEqualTo(accountUser);
+    }
+
+    @ParameterizedTest
+    @ArgumentsSource(WrongUserProvider.class)
+    void shouldThrowExceptionWhenCreateAccountUserWithBlankValues(final AccountUserDto accountUser, final RuntimeException expectedException) {
+        // WHEN
+        final var response = assertThrows(RuntimeException.class,
+                () -> this.useCase.create(accountUser));
+
+        // THEN
+        assertThat(response).isNotNull();
+        assertThat(response)
+                .usingRecursiveComparison()
+                .isEqualTo(expectedException);
+        verify(accountUserGateway, times(0)).existsByEmail(anyString());
+        verify(accountUserGateway, times(0)).existsByLogin(anyString());
+        verify(accountUserGateway, times(0)).save(any(AccountUser.class));
     }
 
     @Test
@@ -184,4 +204,36 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
         verify(accountUserGateway).existsByLogin(accountUser.login());
     }
 
+    @Test
+    void testFindAllWithEmptyList() {
+        // GIVEN
+        given(accountUserGateway.findAll())
+                .willReturn(new ArrayList<>());
+
+        // WHEN
+        final var response = useCase.findAll();
+
+        // THEN
+        assertThat(response).isEmpty();
+    }
+
+    @Test
+    void testFindAllWithUsersAndCars() {
+        // GIVEN
+        var usersDto = createListAccountUserDto();
+        var users = usersDto.stream().map(AccountUser::new).toList();
+
+        given(accountUserGateway.findAll())
+                .willReturn(users);
+
+        // WHEN
+        final var result = useCase.findAll();
+
+        // THEN
+        assertThat(result).hasSize(2);
+        assertThat(result)
+                .usingRecursiveComparison()
+                .ignoringCollectionOrder()
+                .isEqualTo(usersDto);
+    }
 }
