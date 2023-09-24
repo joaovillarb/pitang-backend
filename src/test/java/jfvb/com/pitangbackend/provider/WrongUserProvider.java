@@ -27,7 +27,9 @@ public class WrongUserProvider extends BaseTest implements ArgumentsProvider {
                                 "login",
                                 "password",
                                 "phone",
-                                List.of(toCarDto(null))
+                                List.of(toCarDto(null)),
+                                null,
+                                null
                         ),
                         new MissingFieldsException("Missing Field(s): [firstName]")
                 ),
@@ -41,7 +43,9 @@ public class WrongUserProvider extends BaseTest implements ArgumentsProvider {
                                 "login",
                                 "password",
                                 "phone",
-                                List.of(toCarDto(null))
+                                List.of(toCarDto(null)),
+                                null,
+                                null
                         ),
                         new InvalidFieldsException("Invalid Field(s): [firstName]")
                 )

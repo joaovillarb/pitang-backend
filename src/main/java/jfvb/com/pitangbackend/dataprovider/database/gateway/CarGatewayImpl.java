@@ -7,38 +7,22 @@ import jfvb.com.pitangbackend.dataprovider.database.repository.CarRepository;
 
 import java.util.List;
 
-public class CarGatewayImpl implements CarGateway {
-
-    private final CarRepository carRepository;
+public final class CarGatewayImpl extends AbstractGatewayImpl<Car, Long, CarRepository> implements CarGateway {
 
     public CarGatewayImpl(CarRepository carRepository) {
-        this.carRepository = carRepository;
-    }
-
-    public Car getById(Long id) {
-        return this.carRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Car not found with id=%s", id), 404));
-    }
-
-    public Car save(Car car) {
-        return this.carRepository.saveAndFlush(car);
-    }
-
-    public void delete(Long id) {
-        this.carRepository.deleteById(id);
-        this.carRepository.flush();
+        super(carRepository, Car.class);
     }
 
     public boolean existsByLicensePlate(String licensePlate) {
-        return this.carRepository.existsByLicensePlate(licensePlate);
+        return this.repository.existsByLicensePlate(licensePlate);
     }
 
     public List<Car> findAllByAccountUserId(Long userId) {
-        return this.carRepository.findAllByAccountUserIdOrderByUsageCountDesc(userId);
+        return this.repository.findAllByAccountUserIdOrderByUsageCountDesc(userId);
     }
 
     public Car getByIdAndAccountUserId(Long id, Long userId) {
-        return this.carRepository.findByIdAndAccountUserId(id, userId)
+        return this.repository.findByIdAndAccountUserId(id, userId)
                 .orElseThrow(() -> new NotFoundException(String.format("Car not found with id=%s", id), 404));
     }
 

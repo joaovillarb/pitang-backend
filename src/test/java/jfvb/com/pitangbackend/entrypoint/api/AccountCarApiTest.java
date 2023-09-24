@@ -17,18 +17,18 @@ import static org.mockito.Mockito.mock;
 class AccountCarApiTest extends BaseControllerUnitTest {
 
     private final UseCaseCar useCase = mock(UseCaseCar.class);
-    private final CarApi controller = new CarApi(this.useCase);
+    private final CarApi api = new CarApi(this.useCase);
 
     @Test
     void getById() {
         // GIVEN
         final CarDto car = toCarDto(1L);
 
-        given(this.useCase.getByIdAndIncreaseUsage(1L, 1L))
+        given(this.useCase.getByIdAndIncreaseUsage(1L))
                 .willReturn(car);
 
         // WHEN
-        final ResponseEntity<CarDto> response = this.controller.getByIdAndLoggedInUser("1", 1L);
+        final ResponseEntity<CarDto> response = this.api.getByIdAndLoggedInUser(1L);
 
         // THEN
         assertThat(response).isNotNull();
@@ -44,11 +44,11 @@ class AccountCarApiTest extends BaseControllerUnitTest {
         // GIVEN
         final List<CarDto> cars = toCarDtoList(1L);
 
-        given(this.useCase.findAllByLoggedInUser(1L))
+        given(this.useCase.findAllByLoggedInUser())
                 .willReturn(cars);
 
         // WHEN
-        final ResponseEntity<List<CarDto>> response = this.controller.findAllByLoggedInUser("1");
+        final ResponseEntity<List<CarDto>> response = this.api.findAllByLoggedInUser();
 
         // THEN
         assertThat(response).isNotNull();
@@ -59,16 +59,17 @@ class AccountCarApiTest extends BaseControllerUnitTest {
                 .isEqualTo(cars);
     }
 
+
     @Test
     void shouldCreateCar() {
         // GIVEN
         final CarDto carDto = toCarDto(null);
 
-        given(this.useCase.create(carDto, 1L))
+        given(this.useCase.create(carDto))
                 .willReturn(carDto);
 
         // WHEN
-        final ResponseEntity<CarDto> response = this.controller.create("1", carDto);
+        final ResponseEntity<CarDto> response = this.api.create(carDto);
 
         // THEN
         assertThat(response).isNotNull();
@@ -84,11 +85,11 @@ class AccountCarApiTest extends BaseControllerUnitTest {
         // GIVEN
         final CarDto carDto = toCarDto(1L);
 
-        given(this.useCase.update(1L, carDto, 1L))
+        given(this.useCase.update(1L, carDto))
                 .willReturn(carDto);
 
         // WHEN
-        final ResponseEntity<CarDto> response = this.controller.update("1", 1L, carDto);
+        final ResponseEntity<CarDto> response = this.api.update(1L, carDto);
 
         // THEN
         assertThat(response).isNotNull();
@@ -104,11 +105,11 @@ class AccountCarApiTest extends BaseControllerUnitTest {
         // GIVEN
         final CarDto car = toCarDto(1L);
 
-        given(this.useCase.patch(1L, car, 1L))
+        given(this.useCase.patch(1L, car))
                 .willReturn(car);
 
         // WHEN
-        final ResponseEntity<CarDto> response = this.controller.patch("1", 1L, car);
+        final ResponseEntity<CarDto> response = this.api.patch(1L, car);
 
         // THEN
         assertThat(response).isNotNull();
@@ -123,10 +124,10 @@ class AccountCarApiTest extends BaseControllerUnitTest {
     void shouldDeleteCar() {
         // GIVEN
         doNothing().when(this.useCase)
-                .delete(1L, 1L);
+                .delete(1L);
 
         // WHEN
-        final ResponseEntity<Void> response = this.controller.delete("1", 1L);
+        final ResponseEntity<Void> response = this.api.delete(1L);
 
         // THEN
         assertThat(response).isNotNull();

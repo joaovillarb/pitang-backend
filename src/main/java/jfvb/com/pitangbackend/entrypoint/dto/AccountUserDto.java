@@ -1,38 +1,44 @@
 package jfvb.com.pitangbackend.entrypoint.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jfvb.com.pitangbackend.core.annotations.DtoNotBlank;
+import jfvb.com.pitangbackend.core.annotations.DtoNotNull;
+import jfvb.com.pitangbackend.core.annotations.DtoPattern;
 import jfvb.com.pitangbackend.dataprovider.database.entity.AccountUser;
 import jfvb.com.pitangbackend.dataprovider.database.entity.Car;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record AccountUserDto(
         Long id,
-        @NotNull
-        @NotBlank
+        @DtoNotNull
+        @DtoNotBlank
         String firstName,
-        @NotNull
-        @NotBlank
+        @DtoNotNull
+        @DtoNotBlank
         String lastName,
-        @NotNull
-        @NotBlank
-        @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
+        @DtoNotNull
+        @DtoNotBlank
+        @DtoPattern("^[A-Za-z0-9+_.-]+@(.+)$")
         String email,
-        @NotNull
+        @DtoNotNull
         LocalDate birthday,
-        @NotNull
-        @NotBlank
+        @DtoNotNull
+        @DtoNotBlank
         String login,
-        @NotNull
-        @NotBlank
+        @DtoNotNull
+        @DtoNotBlank
         String password,
-        @NotNull
-        @NotBlank
+        @DtoNotNull
+        @DtoNotBlank
         String phone,
-        List<CarDto> cars) {
+        List<CarDto> cars,
+        LocalDateTime createdAt,
+        LocalDateTime lastLogin
+) {
 
     public AccountUserDto(AccountUser accountUser) {
         this(
@@ -42,11 +48,13 @@ public record AccountUserDto(
                 accountUser.getEmail(),
                 accountUser.getBirthday(),
                 accountUser.getLogin(),
-                accountUser.getPassword(),
+                null,
                 accountUser.getPhone(),
                 accountUser.getCars().stream()
                         .map(CarDto::new)
-                        .toList()
+                        .toList(),
+                null,
+                null
         );
     }
 
@@ -58,11 +66,13 @@ public record AccountUserDto(
                 accountUser.getEmail(),
                 accountUser.getBirthday(),
                 accountUser.getLogin(),
-                accountUser.getPassword(),
+                null,
                 accountUser.getPhone(),
                 sortedCars.stream()
                         .map(CarDto::new)
-                        .toList()
+                        .toList(),
+                null,
+                null
         );
     }
 }

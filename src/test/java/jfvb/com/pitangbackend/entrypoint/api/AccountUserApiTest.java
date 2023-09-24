@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 class AccountUserApiTest extends BaseControllerUnitTest {
 
     private final UseCaseAccountUser useCase = mock(UseCaseAccountUser.class);
-    private final AccountUserApi controller = new AccountUserApi(this.useCase);
+    private final AccountUserApi api = new AccountUserApi(this.useCase);
 
     @Test
     void getById() {
@@ -28,7 +28,7 @@ class AccountUserApiTest extends BaseControllerUnitTest {
                 .willReturn(accountUser);
 
         // WHEN
-        final ResponseEntity<AccountUserDto> response = this.controller.getById(1L);
+        final ResponseEntity<AccountUserDto> response = this.api.getById(1L);
 
         // THEN
         assertThat(response).isNotNull();
@@ -49,7 +49,7 @@ class AccountUserApiTest extends BaseControllerUnitTest {
                 .willReturn(accountUserList);
 
         // WHEN
-        final var response = this.controller.findAll();
+        final var response = this.api.findAll();
 
         // THEN
         assertThat(response).isNotNull();
@@ -69,7 +69,7 @@ class AccountUserApiTest extends BaseControllerUnitTest {
                 .willReturn(accountUser);
 
         // WHEN
-        final ResponseEntity<AccountUserDto> response = this.controller.create(accountUser);
+        final ResponseEntity<AccountUserDto> response = this.api.create(accountUser);
 
         // THEN
         assertThat(response).isNotNull();
@@ -89,7 +89,7 @@ class AccountUserApiTest extends BaseControllerUnitTest {
                 .willReturn(accountUser);
 
         // WHEN
-        final ResponseEntity<AccountUserDto> response = this.controller.update(1L, accountUser);
+        final ResponseEntity<AccountUserDto> response = this.api.update(1L, accountUser);
 
         // THEN
         assertThat(response).isNotNull();
@@ -109,7 +109,7 @@ class AccountUserApiTest extends BaseControllerUnitTest {
                 .willReturn(accountUser);
 
         // WHEN
-        final ResponseEntity<AccountUserDto> response = this.controller.patch(1L, accountUser);
+        final ResponseEntity<AccountUserDto> response = this.api.patch(1L, accountUser);
 
         // THEN
         assertThat(response).isNotNull();
@@ -127,7 +127,7 @@ class AccountUserApiTest extends BaseControllerUnitTest {
                 .delete(1L);
 
         // WHEN
-        final ResponseEntity<Void> response = this.controller.delete(1L);
+        final ResponseEntity<Void> response = this.api.delete(1L);
 
         // THEN
         assertThat(response).isNotNull();

@@ -41,6 +41,7 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
         assertThat(response).isNotNull();
         assertThat(response)
                 .usingRecursiveComparison()
+                .ignoringFields("password")
                 .isEqualTo(accountUser);
     }
 
@@ -60,6 +61,7 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
         assertThat(response).isNotNull();
         assertThat(response)
                 .usingRecursiveComparison()
+                .ignoringFields("password")
                 .isEqualTo(accountUser);
     }
 
@@ -84,17 +86,7 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
     void shouldUpdateAccountUser() {
         // GIVEN
         final long accountId = 1L;
-        final AccountUserDto updatedAccountUserDto = new AccountUserDto(
-                accountId,
-                "new firstName",
-                "lastName",
-                "email@email.com",
-                LocalDate.now(),
-                "login",
-                "password",
-                "phone",
-                List.of(toCarDto(accountId))
-        );
+        final AccountUserDto updatedAccountUserDto = createAccountUserDto(accountId, "email@email.com");
 
         final AccountUser originalAccountUserEntity = new AccountUser(toAccountUserDto(accountId));
         final AccountUser updatedAccountUserEntity = new AccountUser(updatedAccountUserDto);
@@ -112,6 +104,7 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
         assertThat(response).isNotNull();
         assertThat(response)
                 .usingRecursiveComparison()
+                .ignoringFields("password")
                 .isEqualTo(updatedAccountUserDto);
     }
 
@@ -119,17 +112,7 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
     void shouldPatchAccountUser() {
         // GIVEN
         final Long accountId = 1L;
-        final AccountUserDto updatedAccountUserDto = new AccountUserDto(
-                accountId,
-                "new firstName",
-                "lastName",
-                "email",
-                LocalDate.now(),
-                "login",
-                "password",
-                "phone",
-                List.of(toCarDto(accountId))
-        );
+        final AccountUserDto updatedAccountUserDto = createAccountUserDto(accountId, "email");
 
         final AccountUser originalAccountUserEntity = new AccountUser(toAccountUserDto(accountId));
         final AccountUser updatedAccountUserEntity = new AccountUser(updatedAccountUserDto);
@@ -147,7 +130,24 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
         assertThat(response).isNotNull();
         assertThat(response)
                 .usingRecursiveComparison()
+                .ignoringFields("password")
                 .isEqualTo(updatedAccountUserDto);
+    }
+
+    private AccountUserDto createAccountUserDto(Long accountId, String email) {
+        return new AccountUserDto(
+                accountId,
+                "new firstName",
+                "lastName",
+                email,
+                LocalDate.now(),
+                "login",
+                "password",
+                "phone",
+                List.of(toCarDto(accountId)),
+                null,
+                null
+        );
     }
 
     @Test
@@ -233,6 +233,7 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
         assertThat(result).hasSize(2);
         assertThat(result)
                 .usingRecursiveComparison()
+                .ignoringFields("password")
                 .ignoringCollectionOrder()
                 .isEqualTo(usersDto);
     }

@@ -6,21 +6,17 @@ import jfvb.com.pitangbackend.core.usecase.car.UseCaseCar;
 import jfvb.com.pitangbackend.core.usecase.car.impl.UseCaseCarImpl;
 import jfvb.com.pitangbackend.core.usecase.user.UseCaseAccountUser;
 import jfvb.com.pitangbackend.core.usecase.user.impl.UseCaseAccountUserImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class UseCaseConfig {
 
     private final AccountUserGateway accountUserGateway;
     private final CarGateway carGateway;
-
-    public UseCaseConfig(AccountUserGateway accountUserGateway,
-                         CarGateway carGateway) {
-        this.accountUserGateway = accountUserGateway;
-        this.carGateway = carGateway;
-    }
 
     @Bean
     @ConditionalOnMissingBean(UseCaseAccountUser.class)
@@ -31,7 +27,7 @@ public class UseCaseConfig {
     @Bean
     @ConditionalOnMissingBean(UseCaseCar.class)
     public UseCaseCar useCaseCar() {
-        return new UseCaseCarImpl(this.carGateway, this.accountUserGateway);
+        return new UseCaseCarImpl(this.carGateway);
     }
 
 }

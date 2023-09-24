@@ -2,6 +2,8 @@ package jfvb.com.pitangbackend.entrypoint.api;
 
 import jfvb.com.pitangbackend.core.usecase.user.UseCaseAccountUser;
 import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,13 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class AccountUserApi {
 
     private final UseCaseAccountUser useCaseAccountUser;
-
-    AccountUserApi(UseCaseAccountUser useCaseAccountUser) {
-        this.useCaseAccountUser = useCaseAccountUser;
-    }
 
     @GetMapping
     public ResponseEntity<List<AccountUserDto>> findAll() {
