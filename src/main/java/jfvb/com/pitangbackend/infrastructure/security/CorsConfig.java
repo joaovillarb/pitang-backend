@@ -10,6 +10,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+import static org.springframework.http.HttpHeaders.*;
+import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.GET;
+
 @Configuration
 public class CorsConfig {
 
@@ -25,8 +29,10 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.addAllowedOrigin(allowedApi);
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+        configuration.setAllowedMethods(
+                Arrays.asList(GET.name(), POST.name(), PUT.name(), PATCH.name(), DELETE.name())
+        );
+        configuration.setAllowedHeaders(Arrays.asList(CONTENT_TYPE, AUTHORIZATION, ACCEPT));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
