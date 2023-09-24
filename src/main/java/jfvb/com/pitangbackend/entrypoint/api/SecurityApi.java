@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class SecurityApi {
 
     private final SecurityGateway useCase;
 
-    @GetMapping("signin")
+    @PostMapping("signin")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(useCase.authenticate(authenticationRequest));
