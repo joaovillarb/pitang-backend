@@ -4,7 +4,10 @@ import jfvb.com.pitangbackend.core.exception.InvalidCredentialsException;
 import jfvb.com.pitangbackend.core.gateway.AccountUserGateway;
 import jfvb.com.pitangbackend.dataprovider.database.entity.AccountUser;
 import jfvb.com.pitangbackend.dataprovider.security.SecurityGateway;
-import jfvb.com.pitangbackend.entrypoint.dto.*;
+import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
+import jfvb.com.pitangbackend.entrypoint.dto.AuthenticationRequest;
+import jfvb.com.pitangbackend.entrypoint.dto.AuthenticationResponse;
+import jfvb.com.pitangbackend.entrypoint.dto.CarDto;
 import jfvb.com.pitangbackend.infrastructure.security.JwtService;
 import jfvb.com.pitangbackend.infrastructure.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +60,8 @@ public class SecurityGatewayImpl implements SecurityGateway {
                         .map(CarDto::new)
                         .toList(),
                 accountUser.getCreatedAt(),
-                accountUser.getLastLogin()
+                accountUser.getLastLogin(),
+                accountUser.getActive()
         );
     }
 }

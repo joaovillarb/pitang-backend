@@ -2,11 +2,12 @@ package jfvb.com.pitangbackend.dataprovider.database.gateway;
 
 import jfvb.com.pitangbackend.core.exception.NotFoundException;
 import jfvb.com.pitangbackend.core.gateway.AbstractGateway;
+import jfvb.com.pitangbackend.dataprovider.database.entity.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public abstract class AbstractGatewayImpl<T, R, E extends JpaRepository<T, R>>
+public abstract class AbstractGatewayImpl<T extends BaseEntity, R, E extends JpaRepository<T, R>>
         implements AbstractGateway<T, R> {
 
     protected final E repository;
@@ -32,6 +33,11 @@ public abstract class AbstractGatewayImpl<T, R, E extends JpaRepository<T, R>>
     public void delete(R id) {
         this.repository.deleteById(id);
         this.repository.flush();
+    }
+
+    public void logicalDelete(T entity) {
+        entity.setActive(false);
+        this.repository.saveAndFlush(entity);
     }
 
     public List<T> findAll() {

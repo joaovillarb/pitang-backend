@@ -24,6 +24,8 @@ public abstract class BaseEntity {
     @Version
     protected Integer version;
 
+    protected Boolean active;
+
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();

@@ -10,6 +10,7 @@ import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class UseCaseAccountUserImpl implements UseCaseAccountUser {
@@ -37,6 +38,9 @@ public class UseCaseAccountUserImpl implements UseCaseAccountUser {
         }
 
         var accountUser = new AccountUser(accountUserDto);
+        accountUser.setActive(true);
+        accountUser.getCars().forEach(car -> car.setActive(true));
+
         var saved = persist(accountUser);
         return new AccountUserDto(saved);
     }
@@ -57,13 +61,14 @@ public class UseCaseAccountUserImpl implements UseCaseAccountUser {
     }
 
     public void delete(Long id) {
-        recoverById(id);
-        this.accountUserGateway.delete(id);
+        var accountUser = recoverById(id);
+        this.accountUserGateway.logicalDelete(accountUser);
     }
 
     public List<AccountUserDto> findAll() {
         return this.accountUserGateway.findAll()
                 .stream()
+                .filter(Objects::nonNull)
                 .sorted(Comparator.comparingInt(user -> {
                                     IntStream intStream = ((AccountUser) user).getCars()
                                             .stream()

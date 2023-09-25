@@ -11,6 +11,7 @@ import jfvb.com.pitangbackend.entrypoint.dto.CarDto;
 import jfvb.com.pitangbackend.infrastructure.utils.SecurityUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class UseCaseCarImpl implements UseCaseCar {
 
@@ -43,14 +44,16 @@ public class UseCaseCarImpl implements UseCaseCar {
 
         final var user = SecurityUtils.getLoggedInUserId();
         final var car = new Car(carDto, user);
+        car.setActive(true);
 
         return persistAndCreateCarDto(car);
     }
 
     public CarDto update(Long id, CarDto car) {
         FieldsValidator.validate(car);
-        var carFounded = recoverById(id);
-        return persistAndCreateCarDto(carFounded.update(car));
+        var carFounded = recoverById(id)
+                .update(car);
+        return persistAndCreateCarDto(carFounded);
     }
 
     public CarDto patch(Long id, CarDto car) {
@@ -60,7 +63,7 @@ public class UseCaseCarImpl implements UseCaseCar {
 
     public void delete(Long id) {
         var carFounded = recoverById(id);
-        this.carGateway.delete(carFounded.getId());
+        this.carGateway.logicalDelete(carFounded);
     }
 
     private CarDto persistAndCreateCarDto(Car carFounded) {
@@ -72,7 +75,7 @@ public class UseCaseCarImpl implements UseCaseCar {
         AccountUser accountUser = SecurityUtils.getLoggedInUserId();
         return accountUser.getCars()
                 .stream()
-                .filter(car -> car.getId().equals(id))
+                .filter(car -> Objects.nonNull(car) && car.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException(String.format("Car not found with id=%s", id), 404));
     }

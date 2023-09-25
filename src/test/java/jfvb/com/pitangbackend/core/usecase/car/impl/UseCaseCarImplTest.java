@@ -17,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
@@ -94,7 +93,8 @@ class UseCaseCarImplTest extends BaseUnitTest {
                 "ANO-2023",
                 "Ford",
                 "Grey",
-                0
+                0,
+                true
         );
 
         final Car updatedCarEntity = new Car(updatedCarDto, accountUser);
@@ -126,7 +126,8 @@ class UseCaseCarImplTest extends BaseUnitTest {
                 "ANO-2024",
                 "Ford Ka",
                 "Grey",
-                0
+                0,
+                true
         );
 
         final Car updatedCarEntity = new Car(updatedCarDto, accountUser);
@@ -159,7 +160,7 @@ class UseCaseCarImplTest extends BaseUnitTest {
         useCase.delete(carId);
 
         // THEN
-        verify(carGateway).delete(anyLong());
+        verify(carGateway).logicalDelete(any(Car.class));
     }
 
     @Test

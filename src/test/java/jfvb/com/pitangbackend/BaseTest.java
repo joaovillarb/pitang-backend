@@ -31,7 +31,8 @@ public abstract class BaseTest {
                 "phone",
                 List.of(toCarDto(id)),
                 null,
-                null
+                null,
+                true
         );
     }
 
@@ -47,7 +48,8 @@ public abstract class BaseTest {
                 "phone",
                 List.of(toCarDto(id)),
                 LocalDateTime.now(),
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                true
         );
     }
 
@@ -89,10 +91,11 @@ public abstract class BaseTest {
                 "h3ll0",
                 "988888888",
                 List.of(
-                        new CarDto(3L, 2018, "PDV-0625", "Audi", "White", 0)
+                        new CarDto(3L, 2018, "PDV-0625", "Audi", "White", 0, true)
                 ),
                 null,
-                null
+                null,
+                true
         );
     }
 
@@ -107,11 +110,12 @@ public abstract class BaseTest {
                 "h3ll0",
                 "988888888",
                 List.of(
-                        new CarDto(2L, 2018, "PDV-0622", "Ford", "White", 0),
-                        new CarDto(1L, 2018, "PDV-0625", "Audi", "White", 1)
+                        new CarDto(2L, 2018, "PDV-0622", "Ford", "White", 0, true),
+                        new CarDto(1L, 2018, "PDV-0625", "Audi", "White", 1, true)
                 ),
                 null,
-                null
+                null,
+                true
         );
     }
 
@@ -122,7 +126,8 @@ public abstract class BaseTest {
                 "PDV-0622",
                 "Audi",
                 "White",
-                0
+                0,
+                true
         );
     }
 

@@ -43,6 +43,7 @@ public class Car extends BaseEntity implements Serializable {
         setLicensePlate(car.licensePlate());
         setModel(car.model());
         setColor(car.color());
+        setActive(car.active());
         return this;
     }
 
@@ -58,6 +59,9 @@ public class Car extends BaseEntity implements Serializable {
         }
         if (Objects.nonNull(car.color())) {
             setColor(car.color());
+        }
+        if (Objects.nonNull(car.active())) {
+            setActive(car.active());
         }
         return this;
     }
