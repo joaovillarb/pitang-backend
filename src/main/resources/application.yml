@@ -26,11 +26,18 @@ spring:
       path: /h2-console
 
 manager:
-#  todo: adicionar variavel de ambiente
-  allowed-api: http://localhost:4200
+#  todo: retirar default url
+  allowed-api: ${FRONTEND_URL:http://localhost:4200}
 
 api:
   security:
     token:
       secret: 18c4833381241fc938c1315482f2805d46c243cda967827f21bb2b08f813df65
       expiration-in-minutes: 9000
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

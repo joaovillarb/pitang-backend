@@ -34,7 +34,11 @@ public class SecurityConfig {
                         "/users",
                         "/users/**",
                         "/h2-console",
-                        "/h2-console/**"
+                        "/h2-console/**",
+                        "/actuator/**",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html"
                 )
                 .permitAll()
 
