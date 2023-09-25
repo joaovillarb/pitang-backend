@@ -14,7 +14,7 @@ pipeline {
         stage('Build Artifact And Sonar') {
             steps {
                 script {
-                    sh 'mvn clean verify sonar:sonar -Dsonar.qualitygate.wait=true -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+                    sh 'mvn clean verify sonar:sonar -Dsonar.qualitygate.wait=true -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN'
                 }
                 post {
                     success {
