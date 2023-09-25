@@ -1,6 +1,9 @@
 pipeline {
     agent any 
 
+    tools {
+        maven '3.9.4'
+    }
     environment {
         SONAR_HOST_URL = 'http://54.173.146.101:9000/'
         SONAR_TOKEN = 'sqa_f59692a808e850ec41ed1cad80731eb17ba2c477'
