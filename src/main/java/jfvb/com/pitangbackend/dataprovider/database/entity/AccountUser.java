@@ -2,7 +2,10 @@ package jfvb.com.pitangbackend.dataprovider.database.entity;
 
 import jfvb.com.pitangbackend.entrypoint.dto.AccountUserDto;
 import jfvb.com.pitangbackend.infrastructure.config.ApplicationConfig;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,6 +64,7 @@ public class AccountUser extends BaseEntity implements UserDetails {
         this.login = accountUser.login();
         this.password = ApplicationConfig.passwordEncoder().encode(accountUser.password());
         this.phone = accountUser.phone();
+        this.active = accountUser.active();
         return this;
     }
 
@@ -86,6 +90,9 @@ public class AccountUser extends BaseEntity implements UserDetails {
         if (Objects.nonNull(accountUser.phone())) {
             setPhone(accountUser.phone());
         }
+        if (Objects.nonNull(accountUser.active())) {
+            setActive(accountUser.active());
+        }
         return this;
     }
 
@@ -110,7 +117,7 @@ public class AccountUser extends BaseEntity implements UserDetails {
     }
 
     public boolean isEnabled() {
-        return true;
+        return getActive();
     }
 
     public String toString() {

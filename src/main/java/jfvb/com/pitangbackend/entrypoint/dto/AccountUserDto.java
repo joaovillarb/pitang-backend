@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record AccountUserDto(
         Long id,
@@ -37,7 +39,8 @@ public record AccountUserDto(
         String phone,
         List<CarDto> cars,
         LocalDateTime createdAt,
-        LocalDateTime lastLogin
+        LocalDateTime lastLogin,
+        Boolean active
 ) {
 
     public AccountUserDto(AccountUser accountUser) {
@@ -54,7 +57,8 @@ public record AccountUserDto(
                         .map(CarDto::new)
                         .toList(),
                 null,
-                null
+                null,
+                isNull(accountUser.getActive()) || accountUser.getActive()
         );
     }
 
@@ -72,7 +76,8 @@ public record AccountUserDto(
                         .map(CarDto::new)
                         .toList(),
                 null,
-                null
+                null,
+                isNull(accountUser.getActive()) || accountUser.getActive()
         );
     }
 }

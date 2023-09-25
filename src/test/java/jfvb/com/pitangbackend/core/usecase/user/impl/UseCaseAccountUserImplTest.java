@@ -146,7 +146,8 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
                 "phone",
                 List.of(toCarDto(accountId)),
                 null,
-                null
+                null,
+                true
         );
     }
 
@@ -156,14 +157,14 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
         final Long accountId = 1L;
 
         given(accountUserGateway.getById(accountId))
-                .willReturn(null);
+                .willReturn(toAccountUserLoggedIn(1L));
 
         // WHEN
         useCase.delete(accountId);
 
         // THEN
         verify(accountUserGateway).getById(any(Long.class));
-        verify(accountUserGateway).delete(any(Long.class));
+        verify(accountUserGateway).logicalDelete(any(AccountUser.class));
     }
 
     @Test

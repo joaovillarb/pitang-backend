@@ -10,5 +10,7 @@ public interface AbstractGateway<T, R> {
 
     void delete(R id);
 
+    void logicalDelete(T entity);
+
     List<T> findAll();
 }

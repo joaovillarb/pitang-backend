@@ -5,6 +5,8 @@ import jfvb.com.pitangbackend.dataprovider.database.entity.Car;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
+import static java.util.Objects.isNull;
+
 public record CarDto(
         Long id,
         @NotBlank
@@ -15,7 +17,8 @@ public record CarDto(
         String model,
         @NotBlank
         String color,
-        Integer usageCount) {
+        Integer usageCount,
+        Boolean active) {
 
     public CarDto(Car car) {
         this(
@@ -24,7 +27,8 @@ public record CarDto(
                 car.getLicensePlate(),
                 car.getModel(),
                 car.getColor(),
-                Objects.isNull(car.getUsageCount()) ? 0 : car.getUsageCount()
+                Objects.isNull(car.getUsageCount()) ? 0 : car.getUsageCount(),
+                isNull(car.getActive()) || car.getActive()
         );
     }
 }

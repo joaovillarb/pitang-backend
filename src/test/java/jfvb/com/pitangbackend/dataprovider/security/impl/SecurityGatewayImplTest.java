@@ -97,6 +97,7 @@ class SecurityGatewayImplTest extends BaseUnitTest {
         assertThat(response).isNotNull();
         assertThat(response)
                 .usingRecursiveComparison()
+                .ignoringFields("active")
                 .isEqualTo(accountUserDto);
     }
 
@@ -114,7 +115,8 @@ class SecurityGatewayImplTest extends BaseUnitTest {
                         .map(CarDto::new)
                         .toList(),
                 accountUser.getCreatedAt(),
-                accountUser.getLastLogin()
+                accountUser.getLastLogin(),
+                true
         );
     }
 
