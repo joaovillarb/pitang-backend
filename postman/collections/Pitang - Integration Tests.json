@@ -1,0 +1,1252 @@
+{
+	"info": {
+		"_postman_id": "3d315f79-ca98-4811-9f14-01d1cc4160a9",
+		"name": "Pitang - Integration Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "10612055-3d315f79-ca98-4811-9f14-01d1cc4160a9"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Buscar usuário e garantir que não existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da4f6e57-1442-4cc6-af49-58acd93006cc",
+								"exec": [
+									"pm.test(\"Verificar se o usuário ainda não existe\", function () {",
+									"    pm.expect(pm.response.json().message).to.equal(\"AccountUser not found with id=1\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'errorCode' sendo 404\", function () {",
+									"    pm.expect(pm.response.json().errorCode).to.equal(404);",
+									"});",
+									"",
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "53e2d8fa-d244-438d-b955-2ec158ce48c4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar usuário com sucesso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af925f9d-3c0e-40ca-a33f-5e464c4fb018",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id'\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'firstName'\", function () {",
+									"    pm.expect(pm.response.json().firstName).to.equal(\"João\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'lastName'\", function () {",
+									"    pm.expect(pm.response.json().lastName).to.equal(\"Villar\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'email'\", function () {",
+									"    pm.expect(pm.response.json().email).to.equal(\"joao@test.com\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'birthday'\", function () {",
+									"    pm.expect(pm.response.json().birthday).to.equal(\"1975-03-21\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'login'\", function () {",
+									"    pm.expect(pm.response.json().login).to.equal(\"joaovillar\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'phone'\", function () {",
+									"    pm.expect(pm.response.json().phone).to.equal(\"8199642168\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'cars'\", function () {",
+									"    pm.expect(pm.response.json().cars).to.eql([]);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "6fc532cf-cd87-42c8-8eae-c31645513208",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"João\",\n  \"lastName\": \"Villar\",\n  \"email\": \"joao@test.com\",\n  \"birthday\": \"1975-03-21\",\n  \"login\": \"joaovillar\",\n  \"password\": \"123\",\n  \"phone\": \"8199642168\",\n  \"cars\": [\n  ],\n  \"createdAt\": \"2023-09-25T23:43:05.062Z\",\n  \"lastLogin\": \"2023-09-25T23:43:05.062Z\",\n  \"active\": true\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar usuário e garantir que existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b7441d62-5a6e-4b34-b02c-e7d2091e5295",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id'\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'firstName'\", function () {",
+									"    pm.expect(pm.response.json().firstName).to.equal(\"João\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'lastName'\", function () {",
+									"    pm.expect(pm.response.json().lastName).to.equal(\"Villar\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'email'\", function () {",
+									"    pm.expect(pm.response.json().email).to.equal(\"joao@test.com\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'birthday'\", function () {",
+									"    pm.expect(pm.response.json().birthday).to.equal(\"1975-03-21\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'login'\", function () {",
+									"    pm.expect(pm.response.json().login).to.equal(\"joaovillar\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'phone'\", function () {",
+									"    pm.expect(pm.response.json().phone).to.equal(\"8199642168\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'cars'\", function () {",
+									"    pm.expect(pm.response.json().cars).to.eql([]);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "8504fb08-bd40-45e1-b657-8ded6b56fb88",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tentar criar um novo usuário com o mesmo e-mail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "52d0ab45-6101-442a-ab9d-70ea3ab3bcf7",
+								"exec": [
+									"pm.test(\"Verificar ser o usuário ainda não existe\", function () {",
+									"    pm.expect(pm.response.json().message).to.equal(\"Email already exists\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'errorCode' sendo 2\", function () {",
+									"    pm.expect(pm.response.json().errorCode).to.equal(2);",
+									"});",
+									"",
+									"pm.test(\"Verificar status HTTP 409\", function () {",
+									"    pm.response.to.have.status(409);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "5f839459-b0ea-4e65-8ae3-4ffac28485de",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"João\",\n  \"lastName\": \"Villar\",\n  \"email\": \"joao@test.com\",\n  \"birthday\": \"1975-03-21\",\n  \"login\": \"joaovillar\",\n  \"password\": \"123\",\n  \"phone\": \"8199642168\",\n  \"cars\": [\n  ],\n  \"createdAt\": \"2023-09-25T23:43:05.062Z\",\n  \"lastLogin\": \"2023-09-25T23:43:05.062Z\",\n  \"active\": true\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar e-mail do usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16f4cac6-e482-449f-b238-4af67f5256e0",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id'\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'firstName'\", function () {",
+									"    pm.expect(pm.response.json().firstName).to.equal(\"João\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'lastName'\", function () {",
+									"    pm.expect(pm.response.json().lastName).to.equal(\"Villar\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'email' alterado\", function () {",
+									"    pm.expect(pm.response.json().email).to.equal(\"joaovillar@test.com\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'birthday'\", function () {",
+									"    pm.expect(pm.response.json().birthday).to.equal(\"1975-03-21\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'login'\", function () {",
+									"    pm.expect(pm.response.json().login).to.equal(\"joaovillar\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'phone'\", function () {",
+									"    pm.expect(pm.response.json().phone).to.equal(\"8199642168\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'cars'\", function () {",
+									"    pm.expect(pm.response.json().cars).to.eql([]);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "b24ea877-3892-41bf-9d72-79051be8ae77",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"João\",\n  \"lastName\": \"Villar\",\n  \"email\": \"joaovillar@test.com\",\n  \"birthday\": \"1975-03-21\",\n  \"login\": \"joaovillar\",\n  \"password\": \"123\",\n  \"phone\": \"8199642168\",\n  \"cars\": [\n  ],\n  \"createdAt\": \"2023-09-25T23:43:05.062Z\",\n  \"lastLogin\": \"2023-09-25T23:43:05.062Z\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar todos os dados do usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e1ff5264-f571-481e-ae27-286d904bc0ff",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id' igual a 1 e garantir que é o mesmo usuário\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'firstName'\", function () {",
+									"    pm.expect(pm.response.json().firstName).to.equal(\"Elon\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'lastName'\", function () {",
+									"    pm.expect(pm.response.json().lastName).to.equal(\"Musk\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'email' alterado\", function () {",
+									"    pm.expect(pm.response.json().email).to.equal(\"elon@musk.com\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'birthday'\", function () {",
+									"    pm.expect(pm.response.json().birthday).to.equal(\"1971-06-28\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'login'\", function () {",
+									"    pm.expect(pm.response.json().login).to.equal(\"elon\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'phone'\", function () {",
+									"    pm.expect(pm.response.json().phone).to.equal(\"8199999999\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'cars'\", function () {",
+									"    pm.expect(pm.response.json().cars).to.eql([]);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "a5df1104-ce6a-4cbd-8f5e-bb7774bb614a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Elon\",\n  \"lastName\": \"Musk\",\n  \"email\": \"elon@musk.com\",\n  \"birthday\": \"1971-06-28\",\n  \"login\": \"elon\",\n  \"password\": \"musk\",\n  \"phone\": \"8199999999\",\n  \"cars\": [\n  ],\n  \"createdAt\": \"2023-09-25T23:43:05.062Z\",\n  \"lastLogin\": \"2023-09-25T23:43:05.062Z\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "5094fac0-4b65-4b09-ba15-bb2e9ab67db4"
+		},
+		{
+			"name": "Signin",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/signin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "886ebe5d-a7e6-4539-85b0-0ecde9989c23",
+								"exec": [
+									"pm.environment.set(\"token\", pm.response.json().token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "d5e1ef72-d9fd-4f74-b926-e86d343c55cd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"elon\",\n  \"password\": \"musk\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "bbaeffa7-d2d2-4c04-b887-9a4d9211b019"
+		},
+		{
+			"name": "Car",
+			"item": [
+				{
+					"name": "Buscar carro e garantir que ainda não existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe410db3-e0f0-4a24-a736-42cd294a8577",
+								"exec": [
+									"pm.test(\"Verificar se o carro ainda não existe\", function () {",
+									"    pm.expect(pm.response.json().message).to.equal(\"Car not found with id=2\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'errorCode' sendo 404\", function () {",
+									"    pm.expect(pm.response.json().errorCode).to.equal(404);",
+									"});",
+									"",
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "c432a809-d3aa-4c75-a85a-4446e5c601b7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/cars/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar carro com sucesso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8aa21948-fc91-465f-b8b2-1c8fe4dd35ed",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id'\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'year'\", function () {",
+									"    pm.expect(pm.response.json().year).to.equal(2010);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'licensePlate'\", function () {",
+									"    pm.expect(pm.response.json().licensePlate).to.equal(\"CS-181\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'model'\", function () {",
+									"    pm.expect(pm.response.json().model).to.equal(\"Slim\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'color'\", function () {",
+									"    pm.expect(pm.response.json().color).to.equal(\"White\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'usageCount'\", function () {",
+									"    pm.expect(pm.response.json().usageCount).to.equal(0);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "d29a8ddb-ff5a-4e76-bf29-e688e61328ff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"year\": 2010,\n  \"licensePlate\": \"CS-181\",\n  \"model\": \"Slim\",\n  \"color\": \"White\",\n  \"usageCount\": 0,\n  \"active\": true\n}"
+						},
+						"url": {
+							"raw": "{{url}}/cars",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar carro salvo e garantir que existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7018d38-d3fa-4f15-bbc4-99a57a442535",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id'\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'year'\", function () {",
+									"    pm.expect(pm.response.json().year).to.equal(2010);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'licensePlate'\", function () {",
+									"    pm.expect(pm.response.json().licensePlate).to.equal(\"CS-181\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'model'\", function () {",
+									"    pm.expect(pm.response.json().model).to.equal(\"Slim\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'color'\", function () {",
+									"    pm.expect(pm.response.json().color).to.equal(\"White\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'usageCount'\", function () {",
+									"    pm.expect(pm.response.json().usageCount).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "ceb62b01-814a-4e00-8b03-141ddfd01c5b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/cars/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cars",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar todos os dados do carro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "164c5643-ee00-4544-a65f-62fae4ac8daf",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id' igual 1 e garantir que é o mesmo carro\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'year'\", function () {",
+									"    pm.expect(pm.response.json().year).to.equal(2011);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'licensePlate'\", function () {",
+									"    pm.expect(pm.response.json().licensePlate).to.equal(\"CS-180\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'model'\", function () {",
+									"    pm.expect(pm.response.json().model).to.equal(\"Large\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'color'\", function () {",
+									"    pm.expect(pm.response.json().color).to.equal(\"Black\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'usageCount'\", function () {",
+									"    pm.expect(pm.response.json().usageCount).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "e4b211c1-2d7a-4a2e-afac-1c73f1f3ef4c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"year\": 2011,\n    \"licensePlate\": \"CS-180\",\n    \"model\": \"Large\",\n    \"color\": \"Black\",\n    \"usageCount\": 0,\n    \"active\": true\n}"
+						},
+						"url": {
+							"raw": "{{url}}/cars/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cars",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar apenas a cor do carro os dados do carro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c02f1e51-dfd1-409d-8440-f916273f0c34",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id' igual 1 e garantir que é o mesmo carro\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'year'\", function () {",
+									"    pm.expect(pm.response.json().year).to.equal(2011);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'licensePlate'\", function () {",
+									"    pm.expect(pm.response.json().licensePlate).to.equal(\"CS-180\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'model'\", function () {",
+									"    pm.expect(pm.response.json().model).to.equal(\"Large\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'color'\", function () {",
+									"    pm.expect(pm.response.json().color).to.equal(\"White\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'usageCount'\", function () {",
+									"    pm.expect(pm.response.json().usageCount).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "13cdbfcd-e98a-4312-aa7d-cce3c1a530cc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"year\": 2011,\n    \"licensePlate\": \"CS-180\",\n    \"model\": \"Large\",\n    \"color\": \"White\",\n    \"usageCount\": 0,\n    \"active\": true\n}"
+						},
+						"url": {
+							"raw": "{{url}}/cars/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cars",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar todos os carros",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "536b2c52-7096-4997-8842-c0a924df24e6",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id'\", function () {",
+									"    pm.expect(pm.response.json()[0].id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'year'\", function () {",
+									"    pm.expect(pm.response.json()[0].year).to.equal(2011);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'licensePlate'\", function () {",
+									"    pm.expect(pm.response.json()[0].licensePlate).to.equal(\"CS-180\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'model'\", function () {",
+									"    pm.expect(pm.response.json()[0].model).to.equal(\"Large\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'color'\", function () {",
+									"    pm.expect(pm.response.json()[0].color).to.equal(\"White\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'usageCount'\", function () {",
+									"    pm.expect(pm.response.json()[0].usageCount).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json()[0].active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "b9330d8b-dc10-427c-a0ef-f31aafd15459",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/cars",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "08395161-a8af-479e-9a4b-7f3b515954f9"
+		},
+		{
+			"name": "Management",
+			"item": [
+				{
+					"name": "Garantir que o usuário tem um carro atribuído",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "25dd8609-fd5a-4603-aa04-44a91a62aceb",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id'\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'firstName'\", function () {",
+									"    pm.expect(pm.response.json().firstName).to.equal(\"Elon\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'lastName'\", function () {",
+									"    pm.expect(pm.response.json().lastName).to.equal(\"Musk\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'email'\", function () {",
+									"    pm.expect(pm.response.json().email).to.equal(\"elon@musk.com\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'birthday'\", function () {",
+									"    pm.expect(pm.response.json().birthday).to.equal(\"1971-06-28\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'login'\", function () {",
+									"    pm.expect(pm.response.json().login).to.equal(\"elon\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'phone'\", function () {",
+									"    pm.expect(pm.response.json().phone).to.equal(\"8199999999\");",
+									"});",
+									"",
+									"pm.test(\"Confirmar que existe um carro vinculado ao usuário'\", function () {",
+									"    const cars = pm.response.json().cars;",
+									"    pm.expect(cars).to.be.an('array');",
+									"    pm.expect(cars).to.have.lengthOf(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "06d5c963-72ae-4498-afdb-ab4e12a2b10a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar novo carro para o usuário com sucesso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e46a9940-00bb-4aa2-9cf9-51ee4f5ea3f5",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id'\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(2);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'year'\", function () {",
+									"    pm.expect(pm.response.json().year).to.equal(2023);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'licensePlate'\", function () {",
+									"    pm.expect(pm.response.json().licensePlate).to.equal(\"CS-100\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'model'\", function () {",
+									"    pm.expect(pm.response.json().model).to.equal(\"Medium\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'color'\", function () {",
+									"    pm.expect(pm.response.json().color).to.equal(\"Green\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'usageCount'\", function () {",
+									"    pm.expect(pm.response.json().usageCount).to.equal(0);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "8b267762-569f-455d-be68-61255305c603",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"year\": 2023,\n  \"licensePlate\": \"CS-100\",\n  \"model\": \"Medium\",\n  \"color\": \"Green\",\n  \"usageCount\": 0,\n  \"active\": true\n}"
+						},
+						"url": {
+							"raw": "{{url}}/cars",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Garantir que o usuário tem dois carros atribuídos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a07e90d7-be8b-439c-b90f-bc8f595de515",
+								"exec": [
+									"pm.test(\"Verificar status HTTP\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'id'\", function () {",
+									"    pm.expect(pm.response.json().id).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'firstName'\", function () {",
+									"    pm.expect(pm.response.json().firstName).to.equal(\"Elon\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'lastName'\", function () {",
+									"    pm.expect(pm.response.json().lastName).to.equal(\"Musk\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'email'\", function () {",
+									"    pm.expect(pm.response.json().email).to.equal(\"elon@musk.com\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'birthday'\", function () {",
+									"    pm.expect(pm.response.json().birthday).to.equal(\"1971-06-28\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'login'\", function () {",
+									"    pm.expect(pm.response.json().login).to.equal(\"elon\");",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'phone'\", function () {",
+									"    pm.expect(pm.response.json().phone).to.equal(\"8199999999\");",
+									"});",
+									"",
+									"pm.test(\"Confirmar que existe dois carros vinculados ao usuário'\", function () {",
+									"    const cars = pm.response.json().cars;",
+									"    pm.expect(cars).to.be.an('array');",
+									"    pm.expect(cars).to.have.lengthOf(2);",
+									"});",
+									"",
+									"pm.test(\"Verificar campo 'active'\", function () {",
+									"    pm.expect(pm.response.json().active).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "3b83e469-b233-4f60-8f2c-d0015139d248",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "57a56ee6-31f4-48cd-b95d-0ced9b3f44df"
+		}
+	]
+}
