@@ -12,7 +12,6 @@ import java.util.Arrays;
 
 import static org.springframework.http.HttpHeaders.*;
 import static org.springframework.http.HttpMethod.*;
-import static org.springframework.http.HttpMethod.GET;
 
 @Configuration
 public class CorsConfig {
@@ -30,7 +29,7 @@ public class CorsConfig {
 
         configuration.addAllowedOrigin(allowedApi);
         configuration.setAllowedMethods(
-                Arrays.asList(GET.name(), POST.name(), PUT.name(), PATCH.name(), DELETE.name())
+                Arrays.asList(GET.name(), POST.name(), PUT.name(), PATCH.name(), DELETE.name(), OPTIONS.name())
         );
         configuration.setAllowedHeaders(Arrays.asList(CONTENT_TYPE, AUTHORIZATION, ACCEPT));
         configuration.setAllowCredentials(true);
