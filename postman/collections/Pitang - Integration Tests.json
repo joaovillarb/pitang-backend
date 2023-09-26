@@ -47,11 +47,17 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/users/1",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/users/1",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"users",
 								"1"
 							]
@@ -133,11 +139,17 @@
 							"raw": "{\n  \"firstName\": \"João\",\n  \"lastName\": \"Villar\",\n  \"email\": \"joao@test.com\",\n  \"birthday\": \"1975-03-21\",\n  \"login\": \"joaovillar\",\n  \"password\": \"123\",\n  \"phone\": \"8199642168\",\n  \"cars\": [\n  ],\n  \"createdAt\": \"2023-09-25T23:43:05.062Z\",\n  \"lastLogin\": \"2023-09-25T23:43:05.062Z\",\n  \"active\": true\n}"
 						},
 						"url": {
-							"raw": "{{url}}/users",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/users",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -210,11 +222,17 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/users/1",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/users/1",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"users",
 								"1"
 							]
@@ -268,11 +286,17 @@
 							"raw": "{\n  \"firstName\": \"João\",\n  \"lastName\": \"Villar\",\n  \"email\": \"joao@test.com\",\n  \"birthday\": \"1975-03-21\",\n  \"login\": \"joaovillar\",\n  \"password\": \"123\",\n  \"phone\": \"8199642168\",\n  \"cars\": [\n  ],\n  \"createdAt\": \"2023-09-25T23:43:05.062Z\",\n  \"lastLogin\": \"2023-09-25T23:43:05.062Z\",\n  \"active\": true\n}"
 						},
 						"url": {
-							"raw": "{{url}}/users",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/users",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -354,11 +378,17 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/users/1",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/users/1",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"users",
 								"1"
 							]
@@ -441,11 +471,17 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/users/1",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/users/1",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"users",
 								"1"
 							]
@@ -495,11 +531,17 @@
 							"raw": "{\n  \"login\": \"elon\",\n  \"password\": \"musk\"\n}"
 						},
 						"url": {
-							"raw": "{{url}}/signin",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/signin",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"signin"
 							]
 						}
@@ -560,11 +602,17 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/cars/2",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/cars/2",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"cars",
 								"2"
 							]
@@ -648,11 +696,17 @@
 							"raw": "{\n  \"year\": 2010,\n  \"licensePlate\": \"CS-181\",\n  \"model\": \"Slim\",\n  \"color\": \"White\",\n  \"usageCount\": 0,\n  \"active\": true\n}"
 						},
 						"url": {
-							"raw": "{{url}}/cars",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/cars",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"cars"
 							]
 						}
@@ -727,11 +781,17 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/cars/1",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/cars/1",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"cars",
 								"1"
 							]
@@ -815,11 +875,17 @@
 							"raw": "{\n    \"id\": 1,\n    \"year\": 2011,\n    \"licensePlate\": \"CS-180\",\n    \"model\": \"Large\",\n    \"color\": \"Black\",\n    \"usageCount\": 0,\n    \"active\": true\n}"
 						},
 						"url": {
-							"raw": "{{url}}/cars/1",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/cars/1",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"cars",
 								"1"
 							]
@@ -903,11 +969,17 @@
 							"raw": "{\n    \"id\": 1,\n    \"year\": 2011,\n    \"licensePlate\": \"CS-180\",\n    \"model\": \"Large\",\n    \"color\": \"White\",\n    \"usageCount\": 0,\n    \"active\": true\n}"
 						},
 						"url": {
-							"raw": "{{url}}/cars/1",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/cars/1",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"cars",
 								"1"
 							]
@@ -983,11 +1055,17 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/cars",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/cars",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"cars"
 							]
 						}
@@ -1067,11 +1145,17 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/users/1",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/users/1",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"users",
 								"1"
 							]
@@ -1155,11 +1239,17 @@
 							"raw": "{\n  \"year\": 2023,\n  \"licensePlate\": \"CS-100\",\n  \"model\": \"Medium\",\n  \"color\": \"Green\",\n  \"usageCount\": 0,\n  \"active\": true\n}"
 						},
 						"url": {
-							"raw": "{{url}}/cars",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/cars",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"cars"
 							]
 						}
@@ -1233,11 +1323,17 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/users/1",
+							"raw": "http://api-1311701201.us-east-2.elb.amazonaws.com/api/users/1",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"api-1311701201",
+								"us-east-2",
+								"elb",
+								"amazonaws",
+								"com"
 							],
 							"path": [
+								"api",
 								"users",
 								"1"
 							]
