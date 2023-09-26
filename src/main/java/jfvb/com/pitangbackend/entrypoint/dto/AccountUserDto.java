@@ -21,7 +21,7 @@ import static java.util.Objects.isNull;
  * - {@code birthday}: A data de nascimento do usuário.
  * - {@code login}: O nome de usuário do usuário.
  * - {@code password}: A senha do usuário.
- * - {@code phone}: O número de telefone do usuário, com apenas números, parênteses, espaços e hifens, com um mínimo de 7 e máximo de 12 caracteres.
+ * - {@code phone}: O número de telefone do usuário, com apenas números, parênteses, espaços e hifens, com um mínimo de 7 e máximo de 18 caracteres.
  * - {@code cars}: Uma lista de objetos {@link CarDto} associados ao usuário.
  * - {@code createdAt}: A data e hora de criação do registro do usuário.
  * - {@code lastLogin}: A data e hora do último login do usuário.
@@ -52,7 +52,7 @@ public record AccountUserDto(
         String password,
         @DtoNotNull
         @DtoNotBlank
-        @DtoPattern("^[0-9() -]{7,12}$")
+        @DtoPattern("^[0-9() -]{7,18}$")
         String phone,
         List<CarDto> cars,
         LocalDateTime createdAt,

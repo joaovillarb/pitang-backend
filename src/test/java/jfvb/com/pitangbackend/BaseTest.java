@@ -28,7 +28,7 @@ public abstract class BaseTest {
                 LocalDate.now(),
                 "login",
                 "password",
-                "phone",
+                "81999649999",
                 List.of(toCarDto(id)),
                 null,
                 null,
@@ -45,7 +45,7 @@ public abstract class BaseTest {
                 LocalDate.now(),
                 "login",
                 null,
-                "phone",
+                "81999649999",
                 List.of(toCarDto(id)),
                 LocalDateTime.now(),
                 LocalDateTime.now(),
@@ -62,7 +62,7 @@ public abstract class BaseTest {
                 LocalDate.now(),
                 "login",
                 null,
-                "phone",
+                "81999649999",
                 null,
                 LocalDateTime.now()
         );
@@ -89,7 +89,7 @@ public abstract class BaseTest {
                 LocalDate.parse("1990-05-01"),
                 "hello.world",
                 "h3ll0",
-                "988888888",
+                "81999649999",
                 List.of(
                         new CarDto(3L, 2018, "PDV-0625", "Audi", "White", 0, true)
                 ),
@@ -108,7 +108,7 @@ public abstract class BaseTest {
                 LocalDate.parse("1990-05-01"),
                 "bello.world",
                 "h3ll0",
-                "988888888",
+                "81999649999",
                 List.of(
                         new CarDto(2L, 2018, "PDV-0622", "Ford", "White", 0, true),
                         new CarDto(1L, 2018, "PDV-0625", "Audi", "White", 1, true)

@@ -143,7 +143,7 @@ class UseCaseAccountUserImplTest extends BaseUnitTest {
                 LocalDate.now(),
                 "login",
                 "password",
-                "phone",
+                "81999649999",
                 List.of(toCarDto(accountId)),
                 null,
                 null,
