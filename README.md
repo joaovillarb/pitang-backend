@@ -85,6 +85,8 @@ alterações do código.
 
 - Jenkins: http://54.157.30.248:8080 (Usuário: user, Senha: user)
 - Sonar: http://54.173.146.101:9000 (Usuário: user, Senha: user)
+- Postman
+  collection: [https://www.postman.com/joao-villar/workspace/user-car-manager/collection/10612055-7644ca65-6193-405a-96e5-f4d32973b61d?action=share&creator=10612055&active-environment=10612055-173be168-0766-4f56-b257-4b605892fde0](Postman)
 
 ## Infraestrutura
 
@@ -94,4 +96,5 @@ alterações do código.
 - Executado nas instâncias do Amazon Elastic Container Service (ECS) e Amazon Elastic Compute Cloud (EC2).
 
 # Url do projeto
+
 http://api-1311701201.us-east-2.elb.amazonaws.com/api
