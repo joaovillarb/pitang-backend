@@ -56,18 +56,19 @@ Além da action no github garantindo o build do projeto.
 
 ## Board do Projeto
 
-[https://github.com/users/joaovillarb/projects/4](Link para o board do projeto no github).
+[Link para o board do projeto no github](https://github.com/users/joaovillarb/projects/4).
 
 ## Estórias de Usuário
 
 Aqui estão as URLs do GitHub contendo as estórias de usuário do projeto:
-[https://github.com/joaovillarb/user-car-manager/issues/1](CRUD Usuários)
-[https://github.com/joaovillarb/user-car-manager/issues/2](CRUD carros)
-[https://github.com/joaovillarb/user-car-manager/issues/6](Configuração e disponibilidade do sonar)
-[https://github.com/joaovillarb/user-car-manager/issues/7](Spring security e autenticação via jwt)
-[https://github.com/joaovillarb/user-car-manager/issues/10](Remoção logica das entidades)
-[https://github.com/joaovillarb/user-car-manager/issues/12](Configuração e disponibilidade do jenkins)
-[https://github.com/joaovillarb/user-car-manager/issues/13](Deploy da aplicação na aws)
+- [CRUD Usuários](https://github.com/joaovillarb/user-car-manager/issues/1)
+- [CRUD carros](https://github.com/joaovillarb/user-car-manager/issues/2)
+- [Configuração e disponibilidade do sonar](https://github.com/joaovillarb/user-car-manager/issues/6)
+- [Spring security e autenticação via jwt](https://github.com/joaovillarb/user-car-manager/issues/7)
+- [Remoção logica das entidades](https://github.com/joaovillarb/user-car-manager/issues/10)
+- [Configuração e disponibilidade do jenkins](https://github.com/joaovillarb/user-car-manager/issues/12)
+- [Deploy da aplicação na aws](https://github.com/joaovillarb/user-car-manager/issues/13)
+
 
 ## Solução
 
@@ -86,7 +87,7 @@ alterações do código.
 - Jenkins: http://54.157.30.248:8080 (Usuário: user, Senha: user)
 - Sonar: http://54.173.146.101:9000 (Usuário: user, Senha: user)
 - Postman
-  collection: [https://www.postman.com/joao-villar/workspace/user-car-manager/collection/10612055-7644ca65-6193-405a-96e5-f4d32973b61d?action=share&creator=10612055&active-environment=10612055-173be168-0766-4f56-b257-4b605892fde0](Postman)
+  collection: [Postman](https://www.postman.com/joao-villar/workspace/user-car-manager/collection/10612055-7644ca65-6193-405a-96e5-f4d32973b61d?action=share&creator=10612055&active-environment=10612055-173be168-0766-4f56-b257-4b605892fde0)
 
 ## Infraestrutura
 
